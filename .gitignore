@@ -1,4 +1,4 @@
-﻿# Quarto / R / Python
+# Quarto / R / Python
 .quarto/
 _site/
 *.html
@@ -17,3 +17,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+/.quarto/
+**/*.quarto_ipynb
