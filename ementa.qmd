@@ -1,0 +1,112 @@
+﻿---
+title: "Workshop Agentes: Inteligência Artificial e Autonomia na Pesquisa Social"
+subtitle: "Seminário Discente DCP-USP 2026 — Minicurso de Curta Duração"
+date: "Novembro de 2026"
+author:
+  - name: "Manoel Galdino"
+    affiliation: "Professor no DCP-USP"
+  - name: "Felipe Lamarca"
+    affiliation: "Mestrando no IESP-UERJ"
+  - name: "Tales Mançano"
+    affiliation: "Mestrando no DCP-USP"
+format:
+  typst:
+    papersize: a4
+    margin:
+      x: 2.5cm
+      y: 2.5cm
+    toc: false
+    section-numbering: 1.1
+    columns: 1
+  pdf:
+    documentclass: article
+    papersize: a4
+    geometry:
+      - top=25mm
+      - bottom=25mm
+      - left=25mm
+      - right=25mm
+    fontsize: 11pt
+    linestretch: 1.15
+    colorlinks: true
+---
+
+# 1. Visão Geral e Justificativa
+
+O avanço recente dos Modelos de Linguagem de Grande Porte (LLMs) inaugurou uma transição fundamental: da assistência conversacional pontual (*chatbots*) para **sistemas agentic (agentes de IA)**. Na pesquisa em ciências sociais, agentes autônomos são capazes de executar planos multi-etapas, manipular dados empíricos, articular ferramentas externas de coleta e validar seus próprios resultados por meio de loops de reflexão e auditoria.
+
+Este minicurso, oferecido no âmbito do **Seminário Discente DCP-USP 2026**, tem como propósito introduzir pós-graduandos e pesquisadores aos fundamentos teóricos, arquiteturais e práticos dos agentes de IA, capacitando-os a desenhar rotinas rigorosas, reproduzíveis e economicamente viáveis em seus próprios projetos.
+
+---
+
+# 2. Objetivos de Aprendizagem
+
+Ao final do workshop, os participantes deverão ser capazes de:
+
+1. **Diferenciar** modelos conversacionais passivos de sistemas autônomos orientados a objetivos (*agentic workflows*).
+2. **Compreender** o papel crítico do *harness* de execução, da gestão de contexto e do ciclo de ferramentas (*tool calling*).
+3. **Avaliar** o panorama de modelos disponíveis (proprietários e abertos), dimensionando custos de tokens e trade-offs entre raciocínio e latência.
+4. **Configurar** mecanismos de controle determinístico (*hooks*) e extensões funcionais (*skills*) para conter alucinações e assegurar reprodutibilidade.
+5. **Estruturar** rotinas de pesquisa com rastreabilidade metodológica e auditoria de prompts/respostas.
+
+---
+
+# 3. Informações Operacionais
+
+- **Carga Horária**: 3 horas (2 sessões de 1h30).
+- **Público-Alvo**: Alunos de pós-graduação, pesquisadores e docentes em Ciência Política, Relações Internacionais, Sociologia e áreas afins.
+- **Pré-Requisitos**: Conhecimentos básicos de uso de computador e manipulação de arquivos. Não há exigência de experiência prévia em programação, embora familiaridade com R, Python ou terminal de comando seja benéfica.
+- **Formato**: Aulas expositivas e demonstrações ao vivo (*live coding/tooling*).
+
+---
+
+# 4. Programa do Curso
+
+## Sessão 1: Fundamentos, Harness e Ecossistema de Modelos (1h30)
+*Foco: Conceituação teórica, arquitetura de sistemas e panorama econômico.*
+
+1. **Do Chatbot ao Agente Autônomo**
+   - Limitações do paradigma de *chat* convencional na pesquisa acadêmica.
+   - Componentes centrais de um agente: raciocínio recursivo, memória, planejamento e execução de ferramentas (*tool calling*).
+   - O conceito de *agentic harness*: ambiente de execução, permissões de leitura/escrita, isolamento e controle de fluxo.
+
+2. **Panorama de Modelos e Infraestrutura**
+   - Estado da arte de modelos: OpenAI (série GPT/o-series), Anthropic (Claude), Google (Gemini) e modelos de pesos abertos (DeepSeek, Llama).
+   - Dimensões de escolha: capacidade de raciocínio profundo, latência, janela de contexto e fidelidade a instruções.
+
+3. **Economia de Tokens e Orçamento de Pesquisa**
+   - Estrutura de precificação por API: custos de entrada (*input*), saída (*output*) e cache de contexto (*prompt caching*).
+   - Estimativas de viabilidade financeira para projetos empíricos em larga escala (análise de documentos, anotação em lote).
+
+4. **Fronteiras e Casos de Uso nas Ciências Sociais**
+   - Mineração e processamento de fontes primárias, codificação temática, apoio à modelagem formal e pipelines de auditoria.
+   - Riscos metodológicos: viés algorítmico, alucinações factuais e não-determinismo.
+
+---
+
+## Sessão 2: Extensibilidade, Hooks Determinísticos e Prática de Pesquisa (1h30)
+*Foco: Demonstração aplicada, governança e ferramentas práticas.*
+
+1. **Arquitetura de Habilidades (*Skills*) e Injeção de Contexto**
+   - O que são *skills*: instruções empacotadas, heurísticas de domínio e modularização.
+   - Engenharia de contexto dinâmico e coordenação de subagentes especializados.
+
+2. **Controle Determinístico com *Hooks* e Guardrails**
+   - Por que o raciocínio puramente probabilístico é insuficiente para a ciência empírica.
+   - Implementação de *hooks* pré/pós-execução: validação sintática, verificação de integridade de dados e bloqueios de segurança.
+
+3. **Integração de Ferramentas e Protocolos Abertos (MCP e CLI)**
+   - Integração com sistemas de arquivos, bancos de dados relacionais e APIs públicas via Model Context Protocol (MCP).
+   - Boas práticas operacionais: isolamento de chaves de API, credenciais e sandboxing.
+
+4. **Reprodutibilidade Científica e Governança de Código**
+   - Versionamento de prompts, logs de execução e transcrições completas de sessões analíticas.
+   - Padrões de transparência e documentação para publicações acadêmicas assistidas por agentes.
+
+---
+
+# 5. Referências e Leituras Recomendadas
+
+- Anthropic. (2024). *Building Effective Agents*. Anthropic Research & Engineering Blog.
+- Model Context Protocol Team. (2024). *Model Context Protocol Specification*.
+- Galdino, M., Lamarca, F., & Mançano, T. (2026). *Notas de Aula e Roteiros Práticos do Workshop de Agentes*. DCP-USP.
