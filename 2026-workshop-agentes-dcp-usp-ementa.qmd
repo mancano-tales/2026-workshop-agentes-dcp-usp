@@ -42,7 +42,7 @@ Ao final do workshop, os participantes deverão ser capazes de:
 2. **Configurar** o *harness* de um agente — permissões, isolamento e containerização — para rodar com segurança.
 3. **Decidir** quando confiar no julgamento do modelo (instrução em prosa) e quando travar o comportamento com uma regra fixa (*hook*, *code as policy*).
 4. **Escrever** hooks determinísticos, *skills* reutilizáveis e um `AGENTS.md` que funcione de verdade — evitando as armadilhas mais comuns.
-5. **Integrar** ao fluxo de pesquisa uma ferramenta de IA já existente, como o Beaver no Zotero.
+5. **Avaliar** e integrar ao fluxo de pesquisa uma ferramenta de IA já existente, com critério.
 
 ---
 
@@ -90,7 +90,6 @@ Ao final do workshop, os participantes deverão ser capazes de:
    - Estrutura, nível de detalhe e armadilhas comuns ao instruir um agente sobre como operar em um repositório ou projeto de pesquisa.
    - Exemplos de boas e más práticas.
 
-4. **Software com IA para Pesquisa — Casos Exemplares**
-   - [Beaver](https://www.beaverapp.ai/): assistente de IA para Zotero que responde perguntas sobre a biblioteca de referências com citação rastreável sentença a sentença.
-   - Outras ferramentas: recursos de codificação qualitativa assistida por IA em NVivo/ATLAS.ti.
-   - Critérios para avaliar uma ferramenta antes de adotar no fluxo de pesquisa: rastreabilidade da citação, portabilidade dos dados, custo e maturidade do projeto.
+4. **Software com IA para Pesquisa — Boas Aplicações Exemplares**
+   - O que caracteriza uma boa aplicação de IA no fluxo de pesquisa: respostas rastreáveis até a fonte, integração com as ferramentas que o pesquisador já usa, e transparência sobre o que foi automatizado.
+   - Critérios para avaliar uma ferramenta antes de adotar: rastreabilidade da citação, portabilidade dos dados, custo e maturidade do projeto.

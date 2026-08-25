@@ -14,7 +14,7 @@ Repositório oficial de materiais, ementa, apresentações e tutoriais práticos
 | Sessão | Tema Principal | Tópicos Centrais |
 |---|---|---|
 | **Sessão 1** | Do Chatbot ao Agente | LLMs como agentes (terminal, arquivos), panorama de modelos, prosa vs. instruções determinísticas, containerização — sem prática |
-| **Sessão 2** | Habilidades Práticas | Git hooks e *code as policy*, skills, MCP, `AGENTS.md`, ferramentas de IA para pesquisa (Beaver, NVivo/ATLAS.ti) |
+| **Sessão 2** | Habilidades Práticas | Git hooks e *code as policy*, skills, MCP, `AGENTS.md`, boas aplicações exemplares de IA para pesquisa |
 
 ---
 
