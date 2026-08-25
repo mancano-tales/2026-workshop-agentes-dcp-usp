@@ -1,5 +1,17 @@
 ﻿# NEWS.md — 2026-workshop-agentes-dcp-usp
 
+## 2026-08-25 — Revisão de Prosa da Ementa
+
+- Corrigidos erros de concordância, digitação e coerência introduzidos em edições manuais da ementa (Seção 1, Objetivos, Sessão 1 e Sessão 2): concordância verbal em "o uso...tiveram" (§1), "vanajosa"→"vantajosa" e regência em "tarefas...em que" (Objetivo 1), "Intodução"→"Introdução" (título da Sessão 1), negrito Markdown quebrado e referência solta ("a mesma ideia") no item 1 da Sessão 2.
+- Renomeado o subitem 1 da Sessão 1 de "Introdução aos Agentes" (duplicava o título da própria sessão) para "LLMs como Agentes".
+- Mantida a citação nominal a Zotero + Beaver no item de software com IA (decisão revertida, a pedido do autor, em relação à abstração adotada em `5fcba03`/`ff3e9d7`) e adicionada uma linha de alternativas open-source (Whisper, Taguette).
+- Adicionada quebra de linha final ausente no arquivo.
+
+**Metadados de Execução**:
+- **Data/Hora**: 2026-08-25 (Horário de Brasília)
+- **Agente**: Claude Code (Sonnet 5)
+- **Arquivos afetados**: 2026-workshop-agentes-dcp-usp-ementa.qmd, NEWS.md
+
 ## 2026-08-24 — Renomeação da Ementa e Correção do Pipeline de Renderização
 
 - `ementa.qmd` renomeado para `2026-workshop-agentes-dcp-usp-ementa.qmd`. A chave `output-file` do YAML de formato não é respeitada por esta instalação do Quarto (1.9.37) em nenhum formato testado (`typst`, `pdf`, `docx`); como o Quarto nomeia a saída a partir do nome do arquivo de entrada, renomear o arquivo fonte foi a forma robusta de garantir que `docs/2026-workshop-agentes-dcp-usp-ementa.{pdf,docx}` sejam gerados sem flags manuais.
