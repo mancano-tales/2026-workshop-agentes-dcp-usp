@@ -1,5 +1,15 @@
 ﻿# NEWS.md — 2026-workshop-agentes-dcp-usp
 
+## 2026-08-25 — Reestruturação do Programa (Sessões 1 e 2)
+
+- Sessão 1: adicionados os itens "Panorama de Modelos e Ferramentas" (famílias de modelos, agentes de terminal/editor) e "Benefícios, Vantagens e Custos" (quando vale automatizar, modelos de cobrança) — fechando lacuna apontada pelo autor entre o programa e o que a sessão deveria cobrir (o que é, o que existe, benefícios, preços).
+- Sessão 2: renomeada para "Habilidades Práticas e Governança"; reestruturada em 5 itens (Skills, Hooks, MCP/Segurança, `AGENTS.md`/Reprodutibilidade, Software Exemplar), incorporando uma proposta do autor sem descartar `AGENTS.md` (ligado ao Objetivo 4) nem a lista de ferramentas exemplares (Zotero/Beaver, Whisper, Taguette) já revisada. Conceitos mais avançados da proposta original (orquestração de subagentes) viraram nota opcional, para não conflitar com o público-alvo sem experiência prévia em programação (§3).
+
+**Metadados de Execução**:
+- **Data/Hora**: 2026-08-25 (Horário de Brasília)
+- **Agente**: Claude Code (Sonnet 5)
+- **Arquivos afetados**: 2026-workshop-agentes-dcp-usp-ementa.qmd, NEWS.md
+
 ## 2026-08-25 — Revisão de Prosa da Ementa
 
 - Corrigidos erros de concordância, digitação e coerência introduzidos em edições manuais da ementa (Seção 1, Objetivos, Sessão 1 e Sessão 2): concordância verbal em "o uso...tiveram" (§1), "vanajosa"→"vantajosa" e regência em "tarefas...em que" (Objetivo 1), "Intodução"→"Introdução" (título da Sessão 1), negrito Markdown quebrado e referência solta ("a mesma ideia") no item 1 da Sessão 2.

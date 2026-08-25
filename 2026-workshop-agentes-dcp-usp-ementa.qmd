@@ -61,32 +61,44 @@ Ao final do workshop, os participantes deverão ser capazes de:
 1. **LLMs como Agentes**
    - LLMs como agentes: o que muda quando o modelo tem acesso a terminal, edita arquivos locais ou em rede, e executa tarefas de várias etapas sem supervisão a cada passo.
 
-2. **Instrução em prosa vs. Restrições determinísticas**
+2. **Panorama de Modelos e Ferramentas**
+   - Principais famílias de modelos hoje (Claude, GPT, Gemini, DeepSeek, modelos abertos) e o que muda entre elas na prática de pesquisa.
+   - Agentes de terminal e de editor (Open Code, Claude Code, entre outros): o que são e como se diferenciam de um chatbot comum.
+
+3. **Benefícios, Vantagens e Custos**
+   - Que tarefas de pesquisa se beneficiam de automação com agentes — e quais não valem o esforço de configurar um agente.
+   - Modelos de cobrança: assinatura de aplicativo vs. cobrança por uso de API (tokens); ordem de grandeza de custo para tarefas típicas de pesquisa.
+
+4. **O Harness do Agente: Isolamento e Containerização**
+   - *Harness*: o ambiente que envolve o modelo e viabiliza sua execução — quem controla permissões de leitura/escrita, o que o agente pode acessar, quem decide quando parar.
+   - Containerização: rodar agentes em sandbox/container limita o raio de dano de uma ação indevida.
+
+5. **Instrução em Prosa vs. Restrições Determinísticas**
    - Quando confiar no julgamento do modelo (instrução em prosa) e quando impor uma regra fixa que executa sempre da mesma forma.
    - Por que a pesquisa empírica exige, em certos pontos do processo, uma previsibilidade que demanda regras determinísticas.
    - Gancho para a Sessão 2: essa distinção é a base de *hooks* e *code as policy*.
 
-3. **O Harness do Agente: Isolamento e Containerização**
-   - *Harness*: o ambiente que envolve o modelo e viabiliza sua execução — quem controla permissões de leitura/escrita, o que o agente pode acessar, quem decide quando parar.
-   - Containerização: rodar agentes em sandbox/container limita o raio de dano de uma ação indevida.
-
 ---
 
-## Sessão 2: Habilidades Práticas (1h30)
+## Sessão 2: Habilidades Práticas e Governança (1h30)
 *Foco: colocar a mão na massa nas ferramentas que tornam um agente confiável e útil para a pesquisa.*
 
-1. **Hooks**
-   - *Hooks* de agente: validações e bloqueios que sempre disparam na execução do modelo, independente do "bom senso" do modelo — a mesma lógica dos *git hooks*, aplicada ao comportamento do agente.
-   - *Code as policy*: regras de governança escritas como código executável, não como texto que o modelo pode ou não seguir.
-
-2. **Skills e Model Context Protocol (MCP)**
+1. **Skills: Instruções Reutilizáveis**
    - O que são *skills*: instruções empacotadas e reutilizáveis para tarefas de pesquisa recorrentes.
-   - MCP: como conectar agentes a ferramentas externas (arquivos, bancos de dados, APIs) de forma padronizada.
+   - Para quem quiser ir além: orquestração de múltiplos agentes trabalhando em conjunto numa mesma tarefa.
 
-3. **Escrevendo Bons Arquivos de Instrução (`AGENTS.md`)**
+2. **Controle Determinístico com Hooks**
+   - *Hooks* de agente: validações e bloqueios (*guardrails*) que sempre disparam antes ou depois da execução do modelo, independente do "bom senso" do modelo — a mesma lógica dos *git hooks*, aplicada ao comportamento do agente.
+   - *Code as policy*: checagem de integridade de dados, validação de formato e auditoria de commits como regras executáveis, não como pedido em prosa.
+
+3. **MCP, Linha de Comando e Segurança**
+   - Model Context Protocol (MCP): como conectar agentes a bases de dados locais, APIs (inclusive governamentais) e ferramentas de busca de forma padronizada.
+   - Boas práticas de segurança: isolamento de chaves de API e permissões de execução — por que "menos acesso" é o padrão seguro.
+
+4. **`AGENTS.md` e Reprodutibilidade**
    - Estrutura, nível de detalhe e armadilhas comuns ao instruir um agente sobre como operar em um repositório ou projeto de pesquisa.
-   - Exemplos de boas e más práticas.
+   - Rastreabilidade: logs de execução e padrões de versionamento que permitem revisar o trabalho do agente depois.
 
-4. **Software com IA para Pesquisa — Aplicações Exemplares**
+5. **Software com IA para Pesquisa — Aplicações Exemplares**
    - O que caracteriza uma boa aplicação de IA no fluxo de pesquisa: respostas rastreáveis até a fonte, integração com as ferramentas que o pesquisador já usa, e transparência sobre o que foi automatizado.
    - Categorias com boas alternativas de IA hoje: gestão de referências (Zotero + Beaver), transcrição de áudio, análise de dados, etc.
