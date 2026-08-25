@@ -1,7 +1,9 @@
 ﻿---
-title: "Workshop Agentes: Inteligência Artificial e Autonomia na Pesquisa Social"
-subtitle: "Seminário Discente DCP-USP 2026 — Minicurso de Curta Duração"
-date: "Novembro de 2026"
+title: "Agentes de Inteligência Artificial para Pesquisa"
+subtitle: |
+  Seminário Discente DCP-USP 2026
+  Minicurso de Curta Duração
+date: "2026-08-24"
 author:
   - name: "Manoel Galdino"
     affiliation: "Professor no DCP-USP"
@@ -18,24 +20,17 @@ format:
     toc: false
     section-numbering: "1.1"
     columns: 1
-  pdf:
-    documentclass: article
-    papersize: a4
-    geometry:
-      - top=25mm
-      - bottom=25mm
-      - left=25mm
-      - right=25mm
-    fontsize: 11pt
-    linestretch: 1.15
-    colorlinks: true
+    mainfont: "Liberation Sans"
+  docx: {}
 ---
 
 # 1. Visão Geral e Justificativa
 
-O avanço recente dos Modelos de Linguagem de Grande Porte (LLMs) inaugurou uma transição fundamental: da assistência conversacional pontual (*chatbots*) para **sistemas agentic (agentes de IA)**. Na pesquisa em ciências sociais, agentes autônomos são capazes de executar planos multi-etapas, manipular dados empíricos, articular ferramentas externas de coleta e validar seus próprios resultados por meio de loops de reflexão e auditoria.
+Os Modelos de Linguagem de Grande Porte (LLMs) inauguraram uma transição: dos chatbots para agentes de IA, sistemas capazes de executar comandos, não apenas responder. Na pesquisa acadêmica — não só em ciências sociais — isso significa executar planos com várias etapas, manipular dados empíricos, usar ferramentas externas (editar e ler arquivos, chamar APIs, pesquisar na internet) e testar os resultados das próprias tarefas.
 
-Este minicurso, oferecido no âmbito do **Seminário Discente DCP-USP 2026**, tem como propósito introduzir pós-graduandos e pesquisadores aos fundamentos teóricos, arquiteturais e práticos dos agentes de IA, capacitando-os a desenhar rotinas rigorosas, reproduzíveis e economicamente viáveis em seus próprios projetos.
+Isso já é útil para diversas tarefas que antes tomavam muito tempo e agora saem com custo bem mais baixo: análise exploratória de dados, transcrição de entrevistas, organização e triagem de arquivos extensos, classificação de notícias e outros documentos, e criação de bases de dados, entre outras.
+
+Este minicurso, oferecido no âmbito do **Seminário Discente DCP-USP 2026**, tem como propósito introduzir pesquisadores aos fundamentos para usar agentes de IA de forma rigorosa — evitando problemas comuns como alucinações, falta de registro do que foi feito e falta de replicabilidade, e garantindo a possibilidade de revisar o trabalho depois. Isso passa por *code as policy*: regras rígidas sobre o que um agente pode e não pode fazer, para evitar caos e catástrofe na pesquisa com agentes.
 
 ---
 
@@ -43,11 +38,11 @@ Este minicurso, oferecido no âmbito do **Seminário Discente DCP-USP 2026**, te
 
 Ao final do workshop, os participantes deverão ser capazes de:
 
-1. **Diferenciar** modelos conversacionais passivos de sistemas autônomos orientados a objetivos (*agentic workflows*).
-2. **Compreender** o papel crítico do *harness* de execução, da gestão de contexto e do ciclo de ferramentas (*tool calling*).
-3. **Avaliar** o panorama de modelos disponíveis (proprietários e abertos), dimensionando custos de tokens e trade-offs entre raciocínio e latência.
-4. **Configurar** mecanismos de controle determinístico (*hooks*) e extensões funcionais (*skills*) para conter alucinações e assegurar reprodutibilidade.
-5. **Estruturar** rotinas de pesquisa com rastreabilidade metodológica e auditoria de prompts/respostas.
+1. **Reconhecer** tarefas de pesquisa que já dá para automatizar com um agente hoje — transcrição, classificação de documentos, organização de arquivos extensos, análise exploratória de dados.
+2. **Configurar** o *harness* de um agente — permissões, isolamento e containerização — para rodar com segurança.
+3. **Decidir** quando confiar no julgamento do modelo (instrução em prosa) e quando travar o comportamento com uma regra fixa (*hook*, *code as policy*).
+4. **Escrever** hooks determinísticos, *skills* reutilizáveis e um `AGENTS.md` que funcione de verdade — evitando as armadilhas mais comuns.
+5. **Integrar** ao fluxo de pesquisa uma ferramenta de IA já existente, como o Beaver no Zotero.
 
 ---
 
@@ -62,51 +57,40 @@ Ao final do workshop, os participantes deverão ser capazes de:
 
 # 4. Programa do Curso
 
-## Sessão 1: Fundamentos, Harness e Ecossistema de Modelos (1h30)
-*Foco: Conceituação teórica, arquitetura de sistemas e panorama econômico.*
+## Sessão 1: Do Chatbot ao Agente (1h30)
+*Foco: caráter estritamente conceitual — o que muda quando um LLM ganha capacidade de agir. Nenhuma habilidade prática é ensinada nesta sessão.*
 
-1. **Do Chatbot ao Agente Autônomo**
-   - Limitações do paradigma de *chat* convencional na pesquisa acadêmica.
-   - Componentes centrais de um agente: raciocínio recursivo, memória, planejamento e execução de ferramentas (*tool calling*).
-   - O conceito de *agentic harness*: ambiente de execução, permissões de leitura/escrita, isolamento e controle de fluxo.
+1. **Do Chatbot ao Agente**
+   - LLMs como agentes: o que muda quando o modelo tem acesso a terminal, edita arquivos locais ou em rede, e executa tarefas de várias etapas sem supervisão a cada passo.
 
-2. **Panorama de Modelos e Infraestrutura**
-   - Estado da arte de modelos: OpenAI (série GPT/o-series), Anthropic (Claude), Google (Gemini) e modelos de pesos abertos (DeepSeek, Llama).
-   - Dimensões de escolha: capacidade de raciocínio profundo, latência, janela de contexto e fidelidade a instruções.
+2. **Prosa vs. Instruções Determinísticas**
+   - Quando confiar no julgamento do modelo (instrução em prosa) e quando impor uma regra fixa que executa sempre da mesma forma.
+   - Por que a pesquisa empírica exige, em certos pontos do processo, uma previsibilidade que só regras determinísticas garantem.
+   - Gancho para a Sessão 2: essa distinção é a base de *hooks* e *code as policy*.
 
-3. **Economia de Tokens e Orçamento de Pesquisa**
-   - Estrutura de precificação por API: custos de entrada (*input*), saída (*output*) e cache de contexto (*prompt caching*).
-   - Estimativas de viabilidade financeira para projetos empíricos em larga escala (análise de documentos, anotação em lote).
-
-4. **Fronteiras e Casos de Uso nas Ciências Sociais**
-   - Mineração e processamento de fontes primárias, codificação temática, apoio à modelagem formal e pipelines de auditoria.
-   - Riscos metodológicos: viés algorítmico, alucinações factuais e não-determinismo.
+3. **O Harness do Agente: Isolamento e Containerização**
+   - *Harness*: o ambiente que envolve o modelo e viabiliza sua execução — quem controla permissões de leitura/escrita, o que o agente pode acessar, quem decide quando parar.
+   - Containerização como mecanismo prático de isolamento: por que rodar um agente em sandbox/container limita o raio de dano de uma ação indevida.
 
 ---
 
-## Sessão 2: Extensibilidade, Hooks Determinísticos e Prática de Pesquisa (1h30)
-*Foco: Demonstração aplicada, governança e ferramentas práticas.*
+## Sessão 2: Habilidades Práticas (1h30)
+*Foco: colocar a mão na massa nas ferramentas que tornam um agente confiável e útil para a pesquisa.*
 
-1. **Arquitetura de Habilidades (*Skills*) e Injeção de Contexto**
-   - O que são *skills*: instruções empacotadas, heurísticas de domínio e modularização.
-   - Engenharia de contexto dinâmico e coordenação de subagentes especializados.
+1. **Git Hooks → Hooks de Agente**
+   - *Git hooks* como ponto de partida familiar: scripts que disparam automaticamente em pontos fixos do fluxo de trabalho (commit, push).
+   - *Hooks* de agente como a mesma ideia aplicada à execução do modelo: validações e bloqueios que sempre disparam, independente do "bom senso" do modelo.
+   - *Code as policy*: regras de governança escritas como código executável, não como texto que o modelo pode ou não seguir.
 
-2. **Controle Determinístico com *Hooks* e Guardrails**
-   - Por que o raciocínio puramente probabilístico é insuficiente para a ciência empírica.
-   - Implementação de *hooks* pré/pós-execução: validação sintática, verificação de integridade de dados e bloqueios de segurança.
+2. **Skills e Model Context Protocol (MCP)**
+   - O que são *skills*: instruções empacotadas e reutilizáveis para tarefas de pesquisa recorrentes.
+   - MCP: como conectar agentes a ferramentas externas (arquivos, bancos de dados, APIs) de forma padronizada.
 
-3. **Integração de Ferramentas e Protocolos Abertos (MCP e CLI)**
-   - Integração com sistemas de arquivos, bancos de dados relacionais e APIs públicas via Model Context Protocol (MCP).
-   - Boas práticas operacionais: isolamento de chaves de API, credenciais e sandboxing.
+3. **Escrevendo Bons Arquivos de Instrução (`AGENTS.md`)**
+   - Estrutura, nível de detalhe e armadilhas comuns ao instruir um agente sobre como operar em um repositório ou projeto de pesquisa.
+   - Exemplos de boas e más práticas.
 
-4. **Reprodutibilidade Científica e Governança de Código**
-   - Versionamento de prompts, logs de execução e transcrições completas de sessões analíticas.
-   - Padrões de transparência e documentação para publicações acadêmicas assistidas por agentes.
-
----
-
-# 5. Referências e Leituras Recomendadas
-
-- Anthropic. (2024). *Building Effective Agents*. Anthropic Research & Engineering Blog.
-- Model Context Protocol Team. (2024). *Model Context Protocol Specification*.
-- Galdino, M., Lamarca, F., & Mançano, T. (2026). *Notas de Aula e Roteiros Práticos do Workshop de Agentes*. DCP-USP.
+4. **Software com IA para Pesquisa — Casos Exemplares**
+   - [Beaver](https://www.beaverapp.ai/): assistente de IA para Zotero que responde perguntas sobre a biblioteca de referências com citação rastreável sentença a sentença.
+   - Outras ferramentas: recursos de codificação qualitativa assistida por IA em NVivo/ATLAS.ti.
+   - Critérios para avaliar uma ferramenta antes de adotar no fluxo de pesquisa: rastreabilidade da citação, portabilidade dos dados, custo e maturidade do projeto.

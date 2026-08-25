@@ -3,23 +3,5 @@
   output-dir: docs
 
 format:
-  typst:
-    papersize: a4
-    margin:
-      x: 2.5cm
-      y: 2.5cm
-    toc: false
-    section-numbering: "1.1"
-    columns: 1
-    mainfont: "Liberation Sans"
-  pdf:
-    documentclass: article
-    papersize: a4
-    geometry:
-      - top=25mm
-      - bottom=25mm
-      - left=25mm
-      - right=25mm
-    fontsize: 11pt
-    linestretch: 1.15
-    colorlinks: true
+  typst: default
+  docx: default
