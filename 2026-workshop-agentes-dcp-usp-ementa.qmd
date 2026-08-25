@@ -92,4 +92,5 @@ Ao final do workshop, os participantes deverão ser capazes de:
 
 4. **Software com IA para Pesquisa — Boas Aplicações Exemplares**
    - O que caracteriza uma boa aplicação de IA no fluxo de pesquisa: respostas rastreáveis até a fonte, integração com as ferramentas que o pesquisador já usa, e transparência sobre o que foi automatizado.
+   - Categorias com boas alternativas de IA hoje (gestão de referências, transcrição, análise qualitativa): o mercado muda rápido e produtos específicos são superados por concorrentes ou novas versões — por isso o foco é no critério de avaliação, não em uma marca.
    - Critérios para avaliar uma ferramenta antes de adotar: rastreabilidade da citação, portabilidade dos dados, custo e maturidade do projeto.
