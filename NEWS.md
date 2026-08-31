@@ -1,5 +1,19 @@
 ﻿# NEWS.md — 2026-workshop-agentes-dcp-usp
 
+## 2026-08-30 23:14 — Ajuste da Ementa por Feedback de Galdino e Lamarca (Sessão 2)
+
+Incorporado feedback recebido em 2026-08-30 sobre a Sessão 2, antes da submissão ao edital do XVI Seminário Discente (prazo 2026-08-31):
+
+- **Item 2 (Hooks)**: explicitado que a analogia com *git hooks* é apenas conceitual — não exige conhecimento prévio de Git dos participantes — e que a demonstração de *code as policy* é feita ao vivo pelos ministrantes, não como exercício prático dos participantes. Atende ao apontamento do Galdino de que não haveria tempo (carga horária de 3h) para ensinar git durante o minicurso.
+- **Item 1 (Skills)** e **Item 5 (Aplicações Exemplares)**: adicionada menção a gerenciamento de contexto — separar agente de implementação de agente de validação — como exemplo concreto de orquestração e como boa prática recorrente nas aplicações exemplares, atendendo à sugestão da segunda mensagem de feedback.
+- `README.md`: tabela da Sessão 2 atualizada para refletir a mesma mudança de enquadramento.
+- PDF e DOCX recompilados via Quarto.
+
+**Metadados de Execução**:
+- **Data/Hora**: 2026-08-30 23:14 (Horário de Brasília)
+- **Agente**: Claude Sonnet 5 / Claude Code / Windows
+- **Arquivos afetados**: 2026-workshop-agentes-dcp-usp-ementa.qmd, README.md, NEWS.md, docs/2026-workshop-agentes-dcp-usp-ementa.pdf, docs/2026-workshop-agentes-dcp-usp-ementa.docx
+
 ## 2026-08-25 — Reestruturação do Programa (Sessões 1 e 2)
 
 - Sessão 1: adicionados os itens "Panorama de Modelos e Ferramentas" (famílias de modelos, agentes de terminal/editor) e "Benefícios, Vantagens e Custos" (quando vale automatizar, modelos de cobrança) — fechando lacuna apontada pelo autor entre o programa e o que a sessão deveria cobrir (o que é, o que existe, benefícios, preços).

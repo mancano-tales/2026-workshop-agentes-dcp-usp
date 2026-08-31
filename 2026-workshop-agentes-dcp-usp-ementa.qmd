@@ -85,11 +85,11 @@ Ao final do workshop, os participantes deverão ser capazes de:
 
 1. **Skills: Instruções Reutilizáveis**
    - O que são *skills*: instruções empacotadas e reutilizáveis para tarefas de pesquisa recorrentes.
-   - Para quem quiser ir além: orquestração de múltiplos agentes trabalhando em conjunto numa mesma tarefa.
+   - Para quem quiser ir além: orquestração de múltiplos agentes trabalhando em conjunto numa mesma tarefa — por exemplo, separar um agente que implementa de outro que só valida o que foi feito, mantendo o contexto de cada etapa enxuto e a revisão independente da execução.
 
 2. **Controle Determinístico com Hooks**
-   - *Hooks* de agente: validações e bloqueios (*guardrails*) que sempre disparam antes ou depois da execução do modelo, independente do "bom senso" do modelo — a mesma lógica dos *git hooks*, aplicada ao comportamento do agente.
-   - *Code as policy*: checagem de integridade de dados, validação de formato e auditoria de commits como regras executáveis, não como pedido em prosa.
+   - *Hooks* de agente: validações e bloqueios (*guardrails*) que sempre disparam antes ou depois da execução do modelo, independente do "bom senso" do modelo — a mesma lógica dos *git hooks*, usada aqui apenas como analogia conceitual para intuir o mecanismo, sem exigir conhecimento prévio de Git.
+   - *Code as policy*: checagem de integridade de dados, validação de formato e auditoria de commits como regras executáveis, não como pedido em prosa — apresentado via demonstração ao vivo pelos ministrantes, não como exercício prático dos participantes.
 
 3. **MCP, Linha de Comando e Segurança**
    - Model Context Protocol (MCP): como conectar agentes a bases de dados locais, APIs (inclusive governamentais) e ferramentas de busca de forma padronizada.
@@ -102,3 +102,4 @@ Ao final do workshop, os participantes deverão ser capazes de:
 5. **Software com IA para Pesquisa — Aplicações Exemplares**
    - O que caracteriza uma boa aplicação de IA no fluxo de pesquisa: respostas rastreáveis até a fonte, integração com as ferramentas que o pesquisador já usa, e transparência sobre o que foi automatizado.
    - Categorias com boas alternativas de IA hoje: gestão de referências (Zotero + Beaver), transcrição de áudio, análise de dados, etc.
+   - Gerenciamento de contexto como boa prática recorrente nessas aplicações: por que separar o agente que executa do agente que audita o resultado reduz viés de confirmação e mantém cada etapa com um contexto mais enxuto e específico.
