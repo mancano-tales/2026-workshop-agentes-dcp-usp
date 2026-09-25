@@ -1,25 +1,40 @@
 # Sessão 1: Introdução aos Agentes de IA — Conceitos, Modelos e Ecossistema
 
-Roteiro do instrutor para a primeira sessão expositiva (1h30). Formato: bloco por tópico, com cues de tempo, pontos de ênfase, exemplos para apoio da fala e perguntas de engajamento. Alinhado a [2026-workshop-agentes-dcp-usp-ementa.qmd](../../2026-workshop-agentes-dcp-usp-ementa.qmd), Seção 4.1. Sessão estritamente conceitual — nenhuma habilidade prática é ensinada aqui (fica para a Sessão 2).
+Roteiro do instrutor para a primeira sessão expositiva (1h30). Formato: bloco por tópico, com cues de tempo, pontos de ênfase, exemplos para apoio da fala e perguntas de engajamento. Alinhado a [2026-workshop-agentes-dcp-usp-ementa.qmd](../../2026-workshop-agentes-dcp-usp-ementa.qmd), Seção 4, Sessão 1 (os blocos 1 a 5 correspondem aos itens 1 a 5 da ementa). Sessão estritamente conceitual — nenhuma habilidade prática é ensinada aqui (fica para a Sessão 2).
+
+Visão de conjunto, casos-âncora e checklist de preparação: [0-meta/plan/plano-geral.md](../../0-meta/plan/plano-geral.md). Referências citadas: [referencias.md](../../referencias.md).
 
 **Distribuição de tempo (90 min):**
 
 | Bloco | Duração | Conteúdo |
 |---|---|---|
-| Abertura | 5 min | Boas-vindas, objetivos de aprendizagem, expectativas |
-| 1. Do Chatbot ao Agente Autônomo | 25 min | *(detalhado abaixo — amostra)* |
-| 2. Panorama de Modelos e Infraestrutura | 20 min | A detalhar |
-| 3. Vantagens, Benefícios e Casos de Uso nas Ciências Sociais | 20 min | A detalhar |
-| 4. Economia de Tokens e Orçamento de Pesquisa | 15 min | A detalhar |
-| Encerramento | 5 min | Ponte para a Sessão 2, perguntas finais |
+| Abertura | 5 min | Boas-vindas, objetivos de aprendizagem, enquete rápida |
+| 1. LLMs como Agentes | 20 min | Do chat ao loop de execução; três componentes; definição operacional |
+| 2. Panorama de Modelos e Ferramentas | 15 min | Famílias de modelos; agentes de terminal e de editor; o ecossistema R |
+| 3. Benefícios, Vantagens e Custos | 15 min | Onde vale a pena; evidência sobre produtividade; como estimar custo |
+| 4. O *Harness*: Isolamento e Containerização | 15 min | Permissões, *sandbox*, raio de dano |
+| 5. Prosa vs. Restrições Determinísticas | 15 min | Julgamento do modelo vs. regra fixa; o problema da validade da medida |
+| Encerramento | 5 min | Tese da sessão, ponte para a Sessão 2 |
 
 ---
 
-## Bloco 1 — Do Chatbot ao Agente Autônomo (25 min)
+## Abertura (5 min)
+
+- Apresentação rápida dos três ministrantes e do formato: Sessão 1 é conceitual, Sessão 2 é demonstração.
+- Mostrar os cinco objetivos de aprendizagem da ementa (§2) em um slide.
+- **Enquete de mão levantada** (ou formulário), com três perguntas:
+  1. Quem já usou um chatbot (ChatGPT, Claude, Gemini) na pesquisa?
+  2. Quem já usou um agente que roda comandos ou edita arquivos no seu computador?
+  3. Quem já usou IA para classificar ou codificar dados que entraram numa análise?
+- **Âncora de comparação**: numa pesquisa com 1.260 cientistas sociais quantitativos (fev.–mar. de 2026), 81% já tinham usado chatbots na pesquisa, mas só 20% usavam agentes regularmente; entre cientistas políticos, 25%. Usuários de agentes postaram 50% mais *working papers*, mas não submeteram mais artigos a periódicos (Lyttelton, Massenkoff e Wilmers, 2026). Guardar esse último dado: ele volta no bloco 3.
+
+---
+
+## Bloco 1 — LLMs como Agentes (20 min)
 
 **Objetivo do bloco:** a turma sai entendendo por que "agente" não é sinônimo de "chatbot mais esperto", e consegue nomear os três componentes que distinguem um agente.
 
-### 1.1 Abertura do bloco (3 min) — gancho
+### 1.1 Gancho (3 min)
 
 Comece perguntando à turma, sem introduzir jargão ainda:
 
@@ -29,35 +44,177 @@ A resposta esperada é: quase todos levantam a mão na primeira pergunta, poucos
 
 **Ponto de ênfase:** não é sobre o modelo ser "mais inteligente". É sobre uma mudança de arquitetura — de uma interação síncrona e supervisionada para um *loop* de execução com autonomia delimitada.
 
-### 1.2 Limitações do paradigma de chat convencional na pesquisa acadêmica (7 min)
+### 1.2 Limitações do paradigma de chat na pesquisa acadêmica (5 min)
 
 Talking points:
 
-- No modo chat, cada resposta depende de o pesquisador formular o próximo prompt. Isso funciona bem para tarefas de uma etapa (resumir, traduzir, explicar), mas degrada rapidamente em tarefas de pesquisa que exigem múltiplas etapas dependentes (coletar → limpar → codificar → validar).
-- Cada nova mensagem "reseta" o compromisso do modelo com o plano original — não há memória de execução, só memória de conversa.
-- Exemplo para a turma (ciências sociais): codificação temática de 200 entrevistas. No modo chat, o pesquisador cola um trecho, pede a codificação, copia o resultado, cola o próximo trecho — o humano é o *orquestrador* do loop. Com um agente, ele itera sobre o corpus sozinho, aplicando o mesmo protocolo de codificação, e só retorna ao pesquisador para validação de amostra ou quando encontra ambiguidade.
+- No modo chat, cada resposta depende de o pesquisador formular o próximo prompt. Isso funciona bem para tarefas de uma etapa (resumir, traduzir, explicar), mas degrada rapidamente em tarefas que exigem múltiplas etapas dependentes (coletar → limpar → codificar → validar).
+- O chat não vê o seu computador: não abre o arquivo, não roda o script, não confere se o resultado bate. Quem copia, cola, roda e confere é você.
+- **Caso-âncora A (discursos parlamentares)**: codificar 2.000 discursos segundo um livro de códigos. No modo chat, o pesquisador cola um trecho, pede a codificação, copia o resultado, cola o próximo — o humano é o *orquestrador* do loop. Com um agente, ele itera sobre o corpus sozinho, aplicando o mesmo protocolo, grava o resultado num arquivo, roda um script de checagem e só volta ao pesquisador para validação de amostra ou quando encontra ambiguidade.
 
-**Pergunta para a turma:** "Que tarefa da pesquisa de vocês hoje segue exatamente esse padrão — vocês fazendo manualmente o que poderia ser um loop?" (Colher 1–2 respostas, não precisa aprofundar — serve para ancorar o conceito seguinte.)
+**Pergunta para a turma:** "Que tarefa da pesquisa de vocês hoje segue exatamente esse padrão — vocês fazendo manualmente o que poderia ser um loop?" (Colher 1–2 respostas, sem aprofundar.)
 
-### 1.3 Componentes centrais de um agente (10 min)
+### 1.3 Componentes centrais de um agente (7 min)
 
-Apresentar os três componentes como resposta à pergunta de abertura. Sugestão de sequência no quadro/slide:
+Apresentar os três componentes como resposta à pergunta de abertura:
 
-1. **Raciocínio recursivo** — o modelo não produz uma resposta final de uma vez; ele avalia o estado atual da tarefa, decide o próximo passo, executa, observa o resultado e reavalia. É um ciclo, não uma chamada única.
-2. **Memória** — distinguir memória de curto prazo (contexto da tarefa em andamento) de memória persistente (o que o agente deve reter entre sessões — ex: preferências do pesquisador, decisões metodológicas já tomadas).
-3. **Planejamento e execução de ferramentas (*tool calling*)** — o agente não só "pensa em texto": ele pode invocar ferramentas externas (rodar código, consultar um banco de dados, buscar na web) e usar o resultado real dessas ferramentas para decidir o próximo passo.
+1. **Raciocínio iterativo** — o modelo não produz uma resposta final de uma vez; ele avalia o estado atual da tarefa, decide o próximo passo, executa, observa o resultado e reavalia. É um ciclo, não uma chamada única.
+2. **Memória e contexto** — distinguir o contexto da tarefa em andamento (a "janela de contexto", que é finita e se degrada quando fica cheia) da memória persistente entre sessões (arquivos como `AGENTS.md`, notas de projeto, decisões metodológicas registradas). Plantar aqui a ideia de **gerenciamento de contexto**, que volta na Sessão 2.
+3. **Uso de ferramentas (*tool calling*)** — o agente não só "pensa em texto": ele invoca ferramentas externas (rodar código, ler e editar arquivos, consultar uma API, buscar na web) e usa o resultado *real* dessas ferramentas para decidir o próximo passo.
 
-**Ponto de ênfase:** a combinação desses três é o que separa um agente de um chatbot com prompt longo. Um chatbot "ajustado" para parecer autônomo, mas sem loop de execução real e sem tool calling verificável, não é um agente — é um chat mais verboso.
+**Definição operacional para o slide** (Simon Willison, 2025): *"um agente é um LLM que roda ferramentas em loop para atingir um objetivo"*. Complementar com a distinção da Anthropic (*Building Effective Agents*, 2024) entre **fluxos de trabalho** (caminho definido pelo programador) e **agentes** (o modelo decide o caminho) — na pesquisa, muitas vezes queremos algo no meio.
 
-### 1.4 O conceito de *harness* (5 min)
+**Ponto de ênfase:** a combinação dos três é o que separa um agente de um chatbot com prompt longo. Um chat "ajustado" para parecer autônomo, mas sem loop de execução real e sem ferramentas verificáveis, não é um agente.
 
-- Definir *harness* como o ambiente que envolve o modelo e viabiliza o loop: onde o agente roda, quais permissões de leitura/escrita ele tem, que grau de isolamento existe (sandbox vs. acesso direto ao sistema de arquivos do pesquisador) e quem controla o fluxo (o agente decide sozinho quando parar, ou há pontos de checagem humana obrigatórios?).
-- Gancho para a Sessão 2: aqui é onde entram hooks determinísticos e skills — mecanismos de controle sobre o harness, não sobre o modelo em si.
+### 1.4 Um exemplo concreto, sem demonstração (5 min)
 
-**Transição para o Bloco 2:** "Se um agente depende desse ambiente de execução, a próxima pergunta natural é: quais modelos existem hoje para colocar dentro desse harness, e como escolher entre eles?"
+Contar, em forma de narrativa, o relato de Scott Cunningham (Baylor; autor de *Causal Inference: The Mixtape*): em novembro de 2025, com um prazo imóvel e um projeto empírico emaranhado, ele passou a usar um agente de terminal para depurar e reorganizar o pipeline; a partir daí escreveu uma série de mais de 50 textos sobre o tema ("Claude Code for economists") e, em março de 2026, usou agentes ao vivo diante do *Board of Governors* do Federal Reserve para replicar um estudo com custo da ordem de US$ 11. Pontos a extrair:
+
+- O ganho não veio de o modelo "saber economia", mas de ele executar, observar e corrigir dentro do projeto.
+- O próprio Cunningham insiste que o ganho é maior para quem já tem expertise para avaliar o resultado — e alerta para o risco de erosão dessa expertise. Isso prepara o bloco 5.
+
+**Transição para o Bloco 2:** "Se um agente é um modelo rodando ferramentas em loop, as próximas perguntas são: qual modelo, e dentro de qual ferramenta?"
 
 ---
 
-## Blocos 2–4 e Encerramento
+## Bloco 2 — Panorama de Modelos e Ferramentas (15 min)
 
-*A detalhar após validação do formato acima com o restante da equipe.*
+**Objetivo do bloco:** a turma consegue situar os nomes que ouve (Claude, GPT, Gemini, DeepSeek, Claude Code, Codex, Cursor...) em duas camadas distintas: o **modelo** e a **ferramenta/harness** que o envolve.
+
+**Aviso ao instrutor:** versões e preços mudam mês a mês. Conferir na semana da aula e evitar números de versão nos slides; falar de famílias.
+
+### 2.1 Duas camadas: modelo e ferramenta (3 min)
+
+- **Modelo**: o LLM propriamente dito (pesos treinados). Acessado via aplicativo (assinatura) ou via API (cobrança por uso).
+- **Ferramenta/harness**: o programa que dá ao modelo acesso a arquivos, terminal e ferramentas, e que controla permissões. A mesma ferramenta pode rodar modelos diferentes, e o mesmo modelo se comporta de forma diferente em ferramentas diferentes.
+- Analogia para a turma: o modelo é o motor; a ferramenta é o carro — com freio, cinto e retrovisor (ou sem eles).
+
+### 2.2 Famílias de modelos (5 min)
+
+| Família | Tipo | O que importa para a pesquisa |
+|---|---|---|
+| Claude (Anthropic) | Fechado | Forte em programação e tarefas agênticas longas; base do Claude Code |
+| GPT (OpenAI) | Fechado | Amplo ecossistema; base do Codex |
+| Gemini (Google) | Fechado | Janelas de contexto muito longas; integração com Google Workspace; base do Gemini CLI |
+| DeepSeek, Qwen, Kimi, GLM | Pesos abertos (em geral) | Custo baixo por token; podem rodar localmente ou em provedores terceiros |
+| Llama, Mistral, Gemma e outros | Pesos abertos | Rodar localmente (ex.: via Ollama) — relevante para dados sensíveis |
+
+Pontos de ênfase:
+
+- **Aberto vs. fechado importa para replicação**: modelos fechados são atualizados e descontinuados pelo fornecedor; uma versão de pesos abertos, registrada, pode ser rodada de novo daqui a cinco anos (Spirling, 2023; Barrie, Palmer e Spirling, 2025).
+- **Dados sensíveis** (entrevistas, dados identificados) pesam a favor de modelos locais ou de contratos institucionais com garantias de não uso para treino — gancho para o comitê de ética.
+
+### 2.3 Agentes de terminal e de editor (5 min)
+
+- **Terminal**: Claude Code, Codex CLI, Gemini CLI, OpenCode (aberto, aceita vários provedores), goose (aberto, doado à Linux Foundation).
+- **Editor/IDE**: Cursor, VS Code com Copilot, Positron Assistant (Posit — relevante para quem usa R).
+- **Aplicativos de desktop com agente**: os aplicativos dos próprios fornecedores já trazem modos agênticos que operam arquivos locais — porta de entrada para quem não usa terminal.
+- **Diferença para o chatbot**: esses programas leem a pasta do projeto, rodam scripts, veem erros e corrigem. O chat só vê o que você cola.
+
+### 2.4 Para quem usa R (2 min)
+
+Mencionar, sem demonstrar, que o ecossistema R já tem peças para isso: `ellmer` (chamar LLMs e definir ferramentas a partir do R), `mall` (aplicar LLMs a colunas de um *data frame*), `mcptools` e `btw` (expor a sessão R a um agente via MCP). O público do DCP usa muito R; vale deixar claro que não é preciso migrar para Python.
+
+**Padronização**: ao longo de 2025 surgiram padrões abertos — MCP (conexão com ferramentas), `AGENTS.md` (instruções de projeto) e *Agent Skills* (instruções reutilizáveis). MCP e `AGENTS.md` foram doados à Agentic AI Foundation (Linux Foundation) em dezembro de 2025. Consequência prática: o que se aprende na Sessão 2 não fica preso a um fornecedor.
+
+---
+
+## Bloco 3 — Benefícios, Vantagens e Custos (15 min)
+
+**Objetivo do bloco:** a turma sabe reconhecer quando vale configurar um agente (Objetivo 1 da ementa) e sabe estimar, em ordem de grandeza, quanto custa.
+
+### 3.1 Onde agentes ajudam — e onde não (5 min)
+
+Critério simples para o slide: **vale automatizar quando a tarefa é repetitiva, volumosa e verificável**.
+
+| Tende a valer a pena | Tende a não valer |
+|---|---|
+| Limpeza e padronização de bases (TSE, INEP, IPEA) | Tarefa feita uma única vez, em 10 minutos, à mão |
+| Classificação de milhares de documentos com livro de códigos | Julgamento teórico central do trabalho |
+| Organização e triagem de pastas extensas de PDFs | Casos em que não há como checar o resultado |
+| Transcrição e pré-codificação de entrevistas | Dados que não podem sair da máquina, sem modelo local |
+| Reescrever e depurar código de análise; replicar um artigo | Escrita do argumento substantivo |
+
+### 3.2 O que a evidência diz sobre produtividade (5 min)
+
+Apresentar a evidência com honestidade — ela é mista e muda rápido:
+
+- **METR (jul. 2025)**: ensaio randomizado com 16 desenvolvedores experientes em 246 tarefas reais — com IA, foram **19% mais lentos**, embora *acreditassem* ter sido 20% mais rápidos. Em fev. 2026, a METR declarou esse resultado desatualizado: ganhos agora parecem prováveis, mas o desenho ficou comprometido porque muitos desenvolvedores se recusaram a trabalhar sem IA.
+- **Cientistas sociais (Lyttelton, Massenkoff e Wilmers, 2026)**: usuários de agentes produzem mais *working papers* e iniciam mais projetos, mas não submetem mais a periódicos — mais produção não é, automaticamente, mais ciência publicada. Também há desigualdade na adoção: nomes tipicamente masculinos adotam agentes a mais que o dobro da taxa de nomes tipicamente femininos; universidades de elite, 40% a mais. Bom gancho para quem estuda desigualdade.
+- **Lição**: a percepção de ganho é um mau estimador do ganho. Medir, não confiar na sensação.
+
+### 3.3 Modelos de cobrança e ordem de grandeza (5 min)
+
+- **Assinatura de aplicativo** (valor mensal fixo, com limites de uso): previsível, bom para uso interativo diário.
+- **API por token** (paga-se por milhão de tokens de entrada e de saída): bom para processamento em lote; exige cuidado com limites de gasto.
+- Regra de bolso: 1 token ≈ 3/4 de palavra em inglês; em português um pouco menos.
+- **Exemplo de conta no quadro** (caso-âncora A): 2.000 discursos × ~1.500 tokens de entrada + ~100 de saída ≈ 3,2 milhões de tokens. Multiplicar pelo preço vigente por milhão de tokens do modelo escolhido (preencher na semana da aula). A ordem de grandeza costuma ir de poucos dólares (modelo pequeno ou aberto) a dezenas de dólares (modelo de fronteira) — e processar vários textos por chamada, em vez de um por vez, reduz bastante o custo.
+- **Custo escondido**: o tempo de verificação humana. Sempre orçar o tempo de validar uma amostra.
+
+---
+
+## Bloco 4 — O *Harness* do Agente: Isolamento e Containerização (15 min)
+
+**Objetivo do bloco:** a turma entende que a segurança e a confiabilidade de um agente dependem mais do ambiente em que ele roda do que do modelo (Objetivo 2 da ementa).
+
+### 4.1 O que é o *harness* (5 min)
+
+- Definir *harness* como o ambiente que envolve o modelo e viabiliza o loop: onde o agente roda, quais permissões de leitura/escrita ele tem, que grau de isolamento existe e quem controla o fluxo (o agente decide sozinho quando parar, ou há pontos de checagem humana obrigatórios?).
+- Os modos de permissão típicos: perguntar antes de cada ação; aprovar automaticamente leituras e perguntar em escritas; autonomia total. **Autonomia total só dentro de um ambiente isolado.**
+
+### 4.2 Raio de dano e containerização (5 min)
+
+- Pergunta para o slide: *"Qual é o pior comando que esse agente poderia rodar, e o que ele destruiria?"* Esse é o raio de dano.
+- Containerização/*sandbox*: rodar o agente dentro de um contêiner (Docker, *dev container*) ou de uma máquina virtual na nuvem em que só a pasta do projeto está montada. Se algo der errado, apaga-se o contêiner; o computador do pesquisador fica intacto.
+- **Caso-âncora C (dados públicos)**: um agente baixando e limpando dados do TSE precisa de internet e de escrita na pasta do projeto — e de mais nada. Não precisa ver a pasta de documentos pessoais, as chaves de outras contas ou o e-mail.
+
+### 4.3 A "tríade letal" (5 min)
+
+Apresentar o conceito de Simon Willison (2025): um agente fica vulnerável a ser manipulado (*prompt injection*) quando combina **(1) acesso a dados privados, (2) exposição a conteúdo não confiável** (páginas web, PDFs baixados, e-mails) **e (3) capacidade de se comunicar com o exterior**. Um PDF malicioso pode conter instruções escondidas que o modelo trata como ordens.
+
+- Na pesquisa: raspar sites e ler PDFs de terceiros é exatamente "conteúdo não confiável". Se o mesmo agente tem acesso aos dados sigilosos de entrevistas e à internet, as três pernas estão presentes.
+- Regra prática: **corte pelo menos uma das três pernas**. Gancho para MCP e segurança na Sessão 2.
+
+---
+
+## Bloco 5 — Instrução em Prosa vs. Restrições Determinísticas (15 min)
+
+**Objetivo do bloco:** a turma consegue distinguir quando confiar no julgamento do modelo e quando impor uma regra fixa (Objetivo 3 da ementa). É a ponte conceitual para a Sessão 2.
+
+### 5.1 Duas formas de controlar um agente (5 min)
+
+| | Instrução em prosa | Restrição determinística |
+|---|---|---|
+| Exemplo | "Por favor, não altere os dados brutos." | Um script que bloqueia qualquer escrita em `dados/brutos/` |
+| Quem decide | O modelo, a cada vez | O código, sempre da mesma forma |
+| Garantia | Probabilística — funciona quase sempre | Determinística — funciona sempre |
+| Serve para | Julgamento, estilo, ambiguidade | Integridade, formato, segurança, registro |
+
+**Ponto de ênfase:** instrução em prosa é um pedido; restrição determinística é uma regra. Um pedido pode ser esquecido quando o contexto enche, quando o modelo "acha" que tem uma boa razão, ou quando uma instrução maliciosa num PDF manda o contrário.
+
+### 5.2 Por que a pesquisa empírica exige previsibilidade em certos pontos (7 min)
+
+Três problemas metodológicos que a turma precisa conhecer:
+
+1. **Variância e replicação**: o mesmo modelo, com o mesmo *prompt*, pode dar respostas diferentes em dias diferentes; fixar a temperatura não resolve (Barrie, Palmer e Spirling, 2025).
+2. **"LLM hacking"**: pequenas escolhas de implementação — modelo, redação do *prompt*, temperatura — mudam as anotações a ponto de tornar significativas hipóteses que não são; é um novo grau de liberdade do pesquisador (Baumann et al., 2025).
+3. **Validade da medida em análises posteriores**: quando um LLM produz uma variável que entra numa regressão, o erro de classificação não é aleatório e enviesa a estimativa. A saída é combinar a saída do modelo com uma **amostra de validação codificada por humanos** e usar estimadores que corrigem o viés (Egami et al., 2023; Ludwig, Mullainathan e Rambachan, 2025).
+
+Conclusão para o slide: **os pontos do processo que afetam a validade e a replicação — dados brutos, formato das variáveis, registro do que foi feito, amostra de validação — devem ser protegidos por regras, não por pedidos.**
+
+### 5.3 Gancho para a Sessão 2 (3 min)
+
+- "Na próxima sessão vamos ver como essa distinção vira mecanismo: *skills* organizam a prosa; *hooks* impõem as regras; `AGENTS.md` registra o que o agente precisa saber; e separar um agente que executa de outro que audita dá ao trabalho uma revisão independente."
+- Mencionar que vamos usar um projeto de demonstração com o caso-âncora A (discursos parlamentares).
+
+---
+
+## Encerramento (5 min)
+
+- Retomar a tese: **o gargalo deixou de ser a execução e passou a ser a verificação.**
+- Três frases para levar:
+  1. Agente = modelo + ferramentas + loop; o *harness* decide o que ele pode fazer.
+  2. Vale automatizar o que é repetitivo, volumoso e verificável.
+  3. O que afeta validade e replicação se protege com regra, não com pedido.
+- Perguntas finais.
+- Leitura sugerida entre as sessões: Korinek (2025), *AI Agents for Economic Research*, seções introdutórias; e um ou dois textos da série de Cunningham.

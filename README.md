@@ -21,9 +21,12 @@ Repositório oficial de materiais, ementa, apresentações e tutoriais práticos
 ## Documentos e Materiais
 
 * **Ementa Completa**: Consulte a versão em código em [2026-workshop-agentes-dcp-usp-ementa.qmd](2026-workshop-agentes-dcp-usp-ementa.qmd), a versão compilada em PDF em [docs/2026-workshop-agentes-dcp-usp-ementa.pdf](docs/2026-workshop-agentes-dcp-usp-ementa.pdf) ou em DOCX em [docs/2026-workshop-agentes-dcp-usp-ementa.docx](docs/2026-workshop-agentes-dcp-usp-ementa.docx).
-* **Slides e Roteiros**:
-  * [Sessão 1: Introdução e Ecossistema](aulas/01-introducao-ecossistema/)
-  * [Sessão 2: Habilidades Práticas e Laboratório](aulas/02-habilidades-praticas/)
+* **Plano Geral das Aulas**: [0-meta/plan/plano-geral.md](0-meta/plan/plano-geral.md) — fio condutor, casos-âncora, cronograma, divisão de papéis e checklist de preparação.
+* **Roteiros do Instrutor**:
+  * [Sessão 1: Introdução aos Agentes](aulas/01-introducao-ecossistema/notas-aula.md)
+  * [Sessão 2: Habilidades Práticas e Governança](aulas/02-habilidades-praticas/notas-aula.md)
+* **Projeto de Demonstração (Sessão 2)**: [aulas/02-habilidades-praticas/lab/projeto-demo/](aulas/02-habilidades-praticas/lab/projeto-demo/) — *skill*, *hooks* em R, subagente auditor e `AGENTS.md` aplicados à codificação de discursos parlamentares fictícios.
+* **Bibliografia Comentada**: [referencias.md](referencias.md) ([BibTeX](referencias.bib)).
 
 ---
 

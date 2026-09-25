@@ -1,5 +1,21 @@
 ﻿# NEWS.md — 2026-workshop-agentes-dcp-usp
 
+## 2026-09-25 — Preparação das Duas Sessões: Roteiros, Demonstração e Bibliografia
+
+Preparação do conteúdo das aulas a partir da ementa submetida, sem alterar o programa (a ementa e os arquivos compilados em `docs/` não foram modificados):
+
+- `0-meta/plan/plano-geral.md` (novo): fio condutor das duas sessões, três casos-âncora (discursos parlamentares, entrevistas, dados públicos), cronograma por bloco com coluna de responsável a definir, materiais pendentes (slides, vídeo de *backup*), checklist da semana da aula e decisões em aberto.
+- `aulas/01-introducao-ecossistema/notas-aula.md`: roteiro reestruturado para seguir os cinco itens da ementa (a versão anterior tinha blocos de "Economia de Tokens" e "Casos de Uso" que não correspondiam ao programa). Mantido o conteúdo do antigo Bloco 1; blocos 2 a 5 e encerramento escritos por completo.
+- `aulas/02-habilidades-praticas/notas-aula.md`: roteiro completo da Sessão 2, com quatro demonstrações ao vivo, exercício oral de classificação "prosa vs. regra", tabela de armadilhas do `AGENTS.md` e checklist final para os participantes.
+- `aulas/02-habilidades-praticas/lab/projeto-demo/` (novo): mini-projeto de pesquisa para as demonstrações — livro de códigos, oito discursos fictícios, validador em R (`R/validar_codificacao.R`, com checagem de evidência literal contra alucinação), três *hooks* em R (proteção de dados brutos, validação pós-escrita, registro de ações), *skill* de codificação, subagente auditor inspirado no "Referee 2" de Scott Cunningham, `AGENTS.md` e arquivos de exemplo para *backup* sem agente.
+- `referencias.md` e `referencias.bib` (novos): bibliografia comentada atualizada para set. 2026 — Korinek (2025), série de Scott Cunningham e MixtapeTools, pesquisa da Anthropic com 1.260 cientistas sociais (2026), Barrie, Palmer e Spirling (AJPS), Ludwig, Mullainathan e Rambachan (2026), Egami et al. (2023), Baumann et al. (2025), METR (2025–2026), Willison, padrões abertos (MCP, AGENTS.md, Agent Skills), *templates* de Sant'Anna e Blattman e ecossistema R.
+- `README.md`: seção de documentos atualizada com os novos materiais.
+
+**Metadados de Execução**:
+- **Data/Hora**: 2026-09-25 (Horário de Brasília)
+- **Agente**: Claude Code (sessão remota)
+- **Arquivos afetados**: 0-meta/plan/plano-geral.md, aulas/01-introducao-ecossistema/notas-aula.md, aulas/02-habilidades-praticas/notas-aula.md, aulas/02-habilidades-praticas/lab/projeto-demo/**, referencias.md, referencias.bib, README.md, NEWS.md
+
 ## 2026-08-30 23:14 — Ajuste da Ementa por Feedback de Galdino e Lamarca (Sessão 2)
 
 Incorporado feedback recebido em 2026-08-30 sobre a Sessão 2, antes da submissão ao edital do XVI Seminário Discente (prazo 2026-08-31):
