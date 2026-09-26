@@ -1,5 +1,15 @@
 ﻿# NEWS.md — 2026-workshop-agentes-dcp-usp
 
+## 2026-09-26 — CLAUDE.md vira ponteiro para o AGENTS.md
+
+Decisão do autor (plano `repo-governance/plan/2026-09-26_Plano_AGENTS_Enxutos_e_Export_Sob_Demanda.md` do `mancano-repo-hub` (issue #27 de lá)). O `CLAUDE.md` era uma cópia do `AGENTS.md` e agora contém só `@AGENTS.md`. O conteúdo é o mesmo; mudava só o título.
+
+**Metadados de Execução**:
+- **Data**: 2026-09-26
+- **Agente**: Claude Code / Claude Opus 5.5 / Claude Code on the web
+- **Mensagem do Commit**: "docs(agents): AGENTS.md unico e enxuto; CLAUDE.md vira @AGENTS.md"
+- **Arquivos afetados**: `CLAUDE.md`, `NEWS.md`
+
 ## 2026-08-30 23:14 — Ajuste da Ementa por Feedback de Galdino e Lamarca (Sessão 2)
 
 Incorporado feedback recebido em 2026-08-30 sobre a Sessão 2, antes da submissão ao edital do XVI Seminário Discente (prazo 2026-08-31):
