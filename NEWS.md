@@ -1,5 +1,8 @@
 ﻿# NEWS.md — 2026-workshop-agentes-dcp-usp
 
+<!-- NEWS-FRAGMENTS:BEGIN -->
+<!-- NEWS-FRAGMENTS:END -->
+
 ## 2026-09-26 — CLAUDE.md vira ponteiro para o AGENTS.md
 
 Decisão do autor (plano `repo-governance/plan/2026-09-26_Plano_AGENTS_Enxutos_e_Export_Sob_Demanda.md` do `mancano-repo-hub` (issue #27 de lá)). O `CLAUDE.md` era uma cópia do `AGENTS.md` e agora contém só `@AGENTS.md`. O conteúdo é o mesmo; mudava só o título.
