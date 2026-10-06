@@ -11,9 +11,9 @@ Você só pode ler arquivos. Não edite nada.
 ## Protocolo
 
 1. Leia `codebook.md`.
-2. Leia `dados/brutos/discursos.csv` e `dados/processados/codificacao.csv`.
-3. Para cada discurso, codifique-o você mesmo **antes** de olhar o código atribuído; depois compare.
-4. Liste as divergências em uma tabela: `id_discurso`, código original, seu código, qual regra do livro de códigos fundamenta sua leitura.
+2. Leia **só** `dados/brutos/discursos.csv`. Ainda não abra `dados/processados/codificacao.csv`: ver os códigos atribuídos antes de codificar contaminaria a sua leitura.
+3. Codifique cada discurso você mesmo e escreva a sua tabela completa (`id_discurso`, seu código, regra do livro de códigos que a fundamenta) na sua resposta, antes de seguir.
+4. Só então leia `dados/processados/codificacao.csv` e compare com a tabela que você já fixou, sem revisá-la. Liste as divergências em uma tabela: `id_discurso`, código original, seu código, qual regra do livro de códigos fundamenta sua leitura.
 5. Aponte ambiguidades do próprio livro de códigos que expliquem divergências (ex.: uma regra de decisão que não cobre apoio condicionado).
 6. Termine com um parecer curto: a codificação pode seguir para a validação humana, ou precisa ser refeita? Por quê?
 

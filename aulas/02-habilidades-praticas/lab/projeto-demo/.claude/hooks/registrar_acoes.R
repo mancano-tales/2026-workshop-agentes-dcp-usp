@@ -31,17 +31,25 @@ parametros <- entrada$tool_input %||% list()
 #     que parecem caminhos de arquivo do projeto.
 # EN: Summarise a shell command: the program plus tokens that look like paths.
 resumir_comando <- function(comando) {
-  primeira_linha <- strsplit(comando, "\n", fixed = TRUE)[[1]][1]
-  tokens <- strsplit(trimws(primeira_linha), "[[:space:]]+")[[1]]
-  tokens <- gsub("^[\"']|[\"']$", "", tokens)
-  # PT: descarta atribuições de variável no início (API_TOKEN=segredo curl ...)
-  #     e programas que só "embrulham" outro (env, sudo, nohup, time, command).
-  # EN: drop leading VAR=value assignments and wrapper programs.
-  embrulhos <- c("env", "sudo", "nohup", "time", "command", "exec")
-  while (length(tokens) > 0 &&
-         (grepl("^[A-Za-z_][A-Za-z0-9_]*=", tokens[1]) || tokens[1] %in% embrulhos)) {
-    tokens <- tokens[-1]
+  linha <- trimws(strsplit(comando, "\n", fixed = TRUE)[[1]][1])
+  # PT: descarta, ANTES de separar as palavras, as atribuições de variável no
+  #     início (API_TOKEN=segredo curl ..., inclusive TOKEN="valor com espaço")
+  #     e os programas que só "embrulham" outro (env, sudo, nohup, time...).
+  # EN: before splitting into words, drop leading VAR=value assignments
+  #     (quoted values included) and wrapper programs.
+  atribuicao <- "^(?:[A-Za-z_][A-Za-z0-9_]*=(?:\"[^\"]*\"|'[^']*'|[^[:space:]]*)[[:space:]]*)+"
+  embrulho <- "^(?:env|sudo|nohup|time|command|exec)(?:[[:space:]]+|$)"
+  repeat {
+    nova <- sub(embrulho, "", sub(atribuicao, "", linha, perl = TRUE), perl = TRUE)
+    if (identical(nova, linha)) break
+    linha <- nova
   }
+  # PT: se ainda sobrar uma atribuição com aspas no meio do comando, não se
+  #     arrisca: nada do comando é registrado.
+  # EN: if a quoted assignment remains mid-command, record nothing of it.
+  if (grepl("[A-Za-z_][A-Za-z0-9_]*=[\"']", linha)) linha <- ""
+  tokens <- strsplit(linha, "[[:space:]]+")[[1]]
+  tokens <- gsub("^[\"']|[\"']$", "", tokens[nzchar(tokens)])
   if (length(tokens) == 0) return(list(programa = NA, caminhos = character(0)))
   caminhos <- unique(grep("^[[:alnum:]_./-]+\\.[[:alnum:]]+$|/", tokens[-1], value = TRUE))
   caminhos <- grep("^-|=|://", caminhos, value = TRUE, invert = TRUE)

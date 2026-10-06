@@ -5,61 +5,56 @@
 #     é uma barreira ANTES da ação, mas só enxerga o texto do comando: um script
 #     (ex.: Rscript limpar.R) pode alterar dados/brutos sem que o caminho apareça.
 #     Este hook é um SENSOR: depois de cada comando de terminal, e antes de o
-#     agente encerrar, compara o MD5 de cada arquivo de dados/brutos/ com a
-#     referência versionada em dados/brutos.md5. Qualquer diferença, seja qual
-#     for o programa que a causou, devolve um alerta ao agente (exit 2) e o
-#     impede de encerrar até que os dados sejam restaurados.
-#     O sensor não desfaz a alteração: avisa e trava. A restauração é feita a
-#     partir do controle de versão (git checkout -- dados/brutos).
+#     agente encerrar, pergunta ao Git se dados/brutos/ difere da última versão
+#     registrada (arquivo alterado, apagado, novo ou oculto). Qualquer diferença,
+#     seja qual for o programa que a causou, devolve um alerta ao agente (exit 2)
+#     e o impede de encerrar até que os dados sejam restaurados.
+#     Por que o Git, e não uma lista de hashes num arquivo? Porque um script que
+#     altera os dados também poderia reescrever essa lista: o agente não pode
+#     guardar o próprio boletim. O histórico do Git só muda com um commit, que
+#     fica visível; e, num projeto real, o servidor (GitHub) pode recusar
+#     commits que mexam em dados/brutos.
+#     O sensor não desfaz a alteração: avisa e trava. A restauração é feita com
+#     git checkout -- dados/brutos (e git clean para arquivos novos).
 #
 # EN: Second layer protecting the raw data. After every shell command and
-#     before the agent stops, compares the MD5 of every file in dados/brutos/
-#     with the versioned reference in dados/brutos.md5. Any difference, whatever
-#     program caused it, is reported back (exit 2) and blocks stopping until
-#     the data are restored. It does not undo the change; it alerts and blocks.
+#     before the agent stops, asks Git whether dados/brutos/ differs from the
+#     last committed version (modified, deleted, new or hidden files). Git is the
+#     reference because a script that alters the data could also rewrite a
+#     checksum file; the agent must not hold its own report card.
 # =============================================================================
 
-`%||%` <- function(x, y) if (is.null(x)) y else x
-
-entrada <- jsonlite::fromJSON(
-  paste(readLines(file("stdin"), warn = FALSE), collapse = "\n"),
-  simplifyVector = FALSE
-)
-
 raiz <- Sys.getenv("CLAUDE_PROJECT_DIR", unset = getwd())
-setwd(raiz)
 
-referencia <- "dados/brutos.md5"
-if (!file.exists(referencia)) {
-  message("ALERTA: a referência ", referencia, " não existe; a integridade dos dados brutos não pode ser verificada.")
+# PT: o stdin do hook não é usado, mas é lido para não deixar o processo pendurado.
+# EN: stdin is unused but drained.
+invisible(readLines(file("stdin"), warn = FALSE))
+
+setwd(raiz)
+estado <- suppressWarnings(system2(
+  "git",
+  c("status", "--porcelain", "--ignored", "--untracked-files=all", "--", "dados/brutos"),
+  stdout = TRUE, stderr = TRUE
+))
+codigo <- attr(estado, "status")
+
+if (!is.null(codigo) && codigo != 0) {
+  message(
+    "ALERTA do hook verificar_integridade_brutos.R: não foi possível consultar o Git ",
+    "(o projeto precisa estar num repositório Git para a verificação de integridade).\n",
+    paste(estado, collapse = "\n")
+  )
   quit(status = 2)
 }
 
-# PT: cada linha da referência tem "md5  caminho", no formato do md5sum.
-# EN: each reference line is "md5  path", as written by md5sum.
-linhas <- readLines(referencia, warn = FALSE)
-linhas <- linhas[nzchar(trimws(linhas))]
-esperado <- setNames(sub("^([0-9a-f]{32}).*$", "\\1", linhas),
-                     sub("^[0-9a-f]{32}[[:space:]]+\\*?", "", linhas))
-
-atuais <- list.files("dados/brutos", recursive = TRUE, full.names = TRUE)
-obtido <- setNames(unname(tools::md5sum(atuais)), atuais)
-
-problemas <- c(
-  paste0("alterado: ", names(esperado)[names(esperado) %in% names(obtido) &
-                                         esperado != obtido[names(esperado)]]),
-  paste0("apagado: ", setdiff(names(esperado), names(obtido))),
-  paste0("novo arquivo: ", setdiff(names(obtido), names(esperado)))
-)
-problemas <- problemas[!grepl(": $", problemas)]
-
-if (length(problemas) == 0) quit(status = 0)
+if (length(estado) == 0) quit(status = 0)
 
 message(
-  "ALERTA do hook verificar_integridade_brutos.R: os dados brutos não batem com a ",
-  "referência em ", referencia, ".\n",
-  paste0("- ", problemas, collapse = "\n"), "\n",
+  "ALERTA do hook verificar_integridade_brutos.R: os dados brutos diferem da última ",
+  "versão registrada no Git.\n",
+  paste0("- ", estado, collapse = "\n"), "\n",
   "Pare o que estiver fazendo, restaure os dados com `git checkout -- dados/brutos` ",
-  "e explique ao pesquisador o que aconteceu. Os dados brutos são somente leitura (ver AGENTS.md)."
+  "(e `git clean -fdx dados/brutos` para arquivos novos) e explique ao pesquisador o que ",
+  "aconteceu. Os dados brutos são somente leitura (ver AGENTS.md)."
 )
 quit(status = 2)

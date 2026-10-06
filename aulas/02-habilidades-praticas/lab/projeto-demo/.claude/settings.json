@@ -4,9 +4,7 @@
       "Read(./.env)",
       "Read(./**/*.key)",
       "Edit(./dados/brutos/**)",
-      "Write(./dados/brutos/**)",
-      "Edit(./dados/brutos.md5)",
-      "Write(./dados/brutos.md5)"
+      "Write(./dados/brutos/**)"
     ]
   },
   "hooks": {

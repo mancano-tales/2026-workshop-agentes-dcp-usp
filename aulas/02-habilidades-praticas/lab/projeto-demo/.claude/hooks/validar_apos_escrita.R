@@ -43,11 +43,13 @@ evento <- entrada$hook_event_name %||% "PostToolUse"
 ferramenta <- entrada$tool_name %||% ""
 caminho <- chartr("\\", "/", entrada$tool_input$file_path %||% "")
 
-# PT: Arquivo ausente. Se nunca houve versão validada, não há o que checar.
-#     Se houve (a marca existe) e o arquivo sumiu sem ir para a quarentena,
-#     o resultado foi apagado: avisa depois do comando e bloqueia o encerramento.
-# EN: Missing file: fine if nothing was ever validated; if a validated version
-#     existed and was deleted without quarantine, report it and block stopping.
+# PT: Arquivo ausente. Se nunca houve validação, não há o que checar.
+#     Se houve (a marca existe, de versão aprovada ou reprovada) e o arquivo
+#     sumiu sem ir para a quarentena, o resultado foi apagado: avisa depois do
+#     comando e bloqueia o encerramento.
+# EN: Missing file: fine if nothing was ever validated; if any version was
+#     validated (passed or failed) and was deleted without quarantine, report
+#     it and block stopping.
 if (!file.exists(alvo)) {
   apagado <- file.exists(marca) && !file.exists(quarentena)
   if (apagado && (identical(evento, "Stop") || identical(ferramenta, "Bash"))) {
@@ -84,11 +86,17 @@ saida <- suppressWarnings(system2(
 ))
 status <- attr(saida, "status") %||% 0L
 
+# PT: A marca registra toda validação, aprovada ou não. Assim, apagar um
+#     arquivo que nunca passou na validação também conta como exclusão de um
+#     resultado (e não como "projeto sem resultado ainda").
+# EN: The marker records every validation, passed or failed, so deleting a
+#     file that never passed is also treated as deleting a result.
+dir.create("logs", showWarnings = FALSE)
 if (status == 0) {
-  dir.create("logs", showWarnings = FALSE)
   writeLines(hash_atual, marca)
   quit(status = 0)
 }
+writeLines(paste0("invalida:", hash_atual), marca)
 
 saida_de_emergencia <- if (identical(evento, "Stop")) {
   paste0(
