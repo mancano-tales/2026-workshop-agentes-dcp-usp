@@ -1,0 +1,66 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./**/*.key)",
+      "Edit(./dados/brutos/**)",
+      "Write(./dados/brutos/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/proteger_dados_brutos.R\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/verificar_integridade_brutos.R\""
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/validar_apos_escrita.R\""
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/registrar_acoes.R\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/verificar_integridade_brutos.R\""
+          },
+          {
+            "type": "command",
+            "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/validar_apos_escrita.R\""
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+id_discurso,posicao_educacao,confianca,trecho_evidencia,codificador,data_codificacao
+D001,favoravel,alta,defendo a ampliação do número de vagas em creches públicas,exemplo-manual,2026-09-25
+D002,contrario,alta,Sou contra qualquer nova expansão antes de consolidarmos o que existe.,exemplo-manual,2026-09-25
+D003,nao_se_aplica,alta,Quero registrar minha homenagem aos agricultores do meu estado pela safra recorde deste ano.,exemplo-manual,2026-09-25
+D004,favoravel,alta,votarei pelo aumento da complementação,exemplo-manual,2026-09-25
+D005,ambiguo,baixa,"Apoio a ideia, desde que a União arque com a maior parte da conta.",exemplo-manual,2026-09-25
+D006,contrario,media,sou contra aumentar o repasse enquanto não houver avaliação de resultados,exemplo-manual,2026-09-25
+D007,nao_se_aplica,alta,Solicito a inclusão em ata do ofício encaminhado pela prefeitura sobre a pavimentação da rodovia estadual.,exemplo-manual,2026-09-25
+D008,favoravel,alta,O programa de bolsas para estudantes de licenciatura deve ser ampliado.,exemplo-manual,2026-09-25

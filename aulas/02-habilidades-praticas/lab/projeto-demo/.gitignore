@@ -1,0 +1,4 @@
+# Saídas geradas nas demonstrações: não versionar.
+logs/*.jsonl
+logs/.codificacao-validada.md5
+dados/processados/*.csv
