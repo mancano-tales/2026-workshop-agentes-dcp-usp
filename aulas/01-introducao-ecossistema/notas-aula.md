@@ -44,7 +44,7 @@ A resposta esperada é: quase todos levantam a mão na primeira pergunta, poucos
 
 **Ponto de ênfase:** não é sobre o modelo ser "mais inteligente". É sobre uma mudança de arquitetura — de uma interação síncrona e supervisionada para um *loop* de execução com autonomia delimitada.
 
-### 1.2 Limitações do paradigma de chat na pesquisa acadêmica (5 min)
+### 1.2 Limitações do paradigma de chat na pesquisa acadêmica (4 min)
 
 Talking points:
 
@@ -54,7 +54,7 @@ Talking points:
 
 **Pergunta para a turma:** "Que tarefa da pesquisa de vocês hoje segue exatamente esse padrão — vocês fazendo manualmente o que poderia ser um loop?" (Colher 1–2 respostas, sem aprofundar.)
 
-### 1.3 Componentes centrais de um agente (7 min)
+### 1.3 Componentes centrais de um agente (6 min)
 
 Apresentar os três componentes como resposta à pergunta de abertura:
 
@@ -66,9 +66,18 @@ Apresentar os três componentes como resposta à pergunta de abertura:
 
 **Ponto de ênfase:** a combinação dos três é o que separa um agente de um chatbot com prompt longo. Um chat "ajustado" para parecer autônomo, mas sem loop de execução real e sem ferramentas verificáveis, não é um agente.
 
-### 1.4 Um exemplo concreto, sem demonstração (5 min)
+### 1.4 Exercício de mesa: o modelo não age, ele pede (3 min)
 
-Contar, em forma de narrativa, o relato de Scott Cunningham (Baylor; autor de *Causal Inference: The Mixtape*): em novembro de 2025, com um prazo imóvel e um projeto empírico emaranhado, ele passou a usar um agente de terminal para depurar e reorganizar o pipeline; a partir daí escreveu uma série de mais de 50 textos sobre o tema ("Claude Code for economists") e, em março de 2026, usou agentes ao vivo diante do *Board of Governors* do Federal Reserve para replicar um estudo com custo da ordem de US$ 11. Pontos a extrair:
+Ideia emprestada do workshop da Australian Political Studies Association (2026), que encena o funcionamento do modelo com papel e dados. Dois voluntários:
+
+- o **"modelo"** só pode escrever pedidos num cartão ("leia o arquivo X", "rode o script Y");
+- o **"harness"** executa o pedido, se for permitido, e devolve o resultado.
+
+Perguntas para fechar: quem decide o que é permitido? (o *harness*); quem guarda o que já foi feito? (arquivos e registros, não o modelo); onde deve ficar a regra que não pode falhar? (no *harness*, não no pedido). O exercício prepara os blocos 4 e 5.
+
+### 1.5 Um exemplo concreto, sem demonstração (4 min)
+
+Contar, em forma de narrativa, o relato de Scott Cunningham (Baylor; autor de *Causal Inference: The Mixtape*): em meados de novembro de 2025 ele passou a usar um agente de terminal (Claude Code) na pesquisa empírica e, desde então, escreveu mais de 50 textos numerados sobre o tema no Substack. O caso mais útil para a ciência política: ele reclassificou, com um modelo barato via API em lote, os 305 mil discursos do Congresso dos EUA sobre imigração de um artigo publicado na *PNAS*, por cerca de US$ 11 por rodada; a concordância discurso a discurso com a codificação original foi de 69%, mas as tendências agregadas ficaram quase idênticas (série "Claude Code", posts 15 a 22, fev. 2026). Depois, leu Ludwig, Mullainathan e Rambachan e concluiu que rótulos de LLM exigem amostra de validação humana. Em março de 2026 falou sobre o tema ao *Board of Governors* do Federal Reserve. Pontos a extrair:
 
 - O ganho não veio de o modelo "saber economia", mas de ele executar, observar e corrigir dentro do projeto.
 - O próprio Cunningham insiste que o ganho é maior para quem já tem expertise para avaliar o resultado — e alerta para o risco de erosão dessa expertise. Isso prepara o bloco 5.
@@ -81,7 +90,7 @@ Contar, em forma de narrativa, o relato de Scott Cunningham (Baylor; autor de *C
 
 **Objetivo do bloco:** a turma consegue situar os nomes que ouve (Claude, GPT, Gemini, DeepSeek, Claude Code, Codex, Cursor...) em duas camadas distintas: o **modelo** e a **ferramenta/harness** que o envolve.
 
-**Aviso ao instrutor:** versões e preços mudam mês a mês. Conferir na semana da aula e evitar números de versão nos slides; falar de famílias.
+**Aviso ao instrutor:** versões e preços mudam em semanas. Os slides trazem os nomes vigentes em outubro de 2026, com o carimbo "out/2026"; conferir tudo na véspera da aula. Fontes oficiais e datas: `0-meta/pesquisa/2026-10-05_code-as-policy-modelos-harness.md`, bloco 2. Datas já conhecidas: o GPT-5.5 sai do ChatGPT e do Codex em 14/10/2026; o Claude Haiku 4.5 pode ser aposentado a partir de 15/10/2026.
 
 ### 2.1 Duas camadas: modelo e ferramenta (3 min)
 
@@ -93,11 +102,11 @@ Contar, em forma de narrativa, o relato de Scott Cunningham (Baylor; autor de *C
 
 | Família | Tipo | O que importa para a pesquisa |
 |---|---|---|
-| Claude (Anthropic) | Fechado | Forte em programação e tarefas agênticas longas; base do Claude Code |
-| GPT (OpenAI) | Fechado | Amplo ecossistema; base do Codex |
-| Gemini (Google) | Fechado | Janelas de contexto muito longas; integração com Google Workspace; base do Gemini CLI |
-| DeepSeek, Qwen, Kimi, GLM | Pesos abertos (em geral) | Custo baixo por token; podem rodar localmente ou em provedores terceiros |
-| Llama, Mistral, Gemma e outros | Pesos abertos | Rodar localmente (ex.: via Ollama) — relevante para dados sensíveis |
+| Claude (Anthropic): Opus 5.5, Sonnet 5.5, Haiku 4.5 | Fechado | Forte em programação e tarefas agênticas longas; base do Claude Code |
+| GPT (OpenAI): GPT-6 Astra, GPT-6.1 Sol, GPT-6 Luna | Fechado | Amplo ecossistema; base do Codex; o Luna é muito barato para processamento em lote |
+| Gemini (Google): 3.8 Flash, 3.1 Pro (*preview*) | Fechado | Janelas de contexto muito longas; integração com Google Workspace; base do Gemini CLI e do Antigravity |
+| DeepSeek V4, Qwen3.8, Kimi K3, GLM | Pesos abertos (em geral) | Custo baixo por token; podem rodar localmente ou em provedores terceiros |
+| Mistral, Gemma e outros | Pesos abertos | Rodar localmente (ex.: via Ollama) — relevante para dados sensíveis |
 
 Pontos de ênfase:
 
@@ -148,7 +157,8 @@ Apresentar a evidência com honestidade — ela é mista e muda rápido:
 - **Assinatura de aplicativo** (valor mensal fixo, com limites de uso): previsível, bom para uso interativo diário.
 - **API por token** (paga-se por milhão de tokens de entrada e de saída): bom para processamento em lote; exige cuidado com limites de gasto.
 - Regra de bolso: 1 token ≈ 3/4 de palavra em inglês; em português um pouco menos.
-- **Exemplo de conta no quadro** (caso-âncora A): 2.000 discursos × ~1.500 tokens de entrada + ~100 de saída ≈ 3,2 milhões de tokens. Multiplicar pelo preço vigente por milhão de tokens do modelo escolhido (preencher na semana da aula). A ordem de grandeza costuma ir de poucos dólares (modelo pequeno ou aberto) a dezenas de dólares (modelo de fronteira) — e processar vários textos por chamada, em vez de um por vez, reduz bastante o custo.
+- **Exemplo de conta no quadro** (caso-âncora A): 2.000 discursos × ~1.500 tokens de entrada + ~100 de saída ≈ 3,2 milhões de tokens. Multiplicar pelo preço vigente por milhão de tokens do modelo escolhido. Referência de outubro de 2026, para 1.000 documentos de ~2.000 tokens com saída curta: ~US$ 0,30 (GPT-6 Luna), ~US$ 2 (Gemini 3.8 Flash), ~US$ 6 (Claude Sonnet 5.5 ou GPT-6.1 Sol), ~US$ 12 (Claude Opus 5.5), ~US$ 30 (GPT-6 Astra); metade disso com *batch*. Transcrever 10 h de áudio: US$ 1,80 a 3,60 via API, ou zero com Whisper local. Premissas do cálculo: `0-meta/pesquisa/2026-10-05_code-as-policy-modelos-harness.md`, seção 2.6. Converter para reais na semana da aula e comparar com o valor de uma bolsa de mestrado.
+- Modelos com raciocínio ligado podem multiplicar os tokens de saída; o tokenizador novo do Claude gera cerca de 30% mais tokens para o mesmo texto.
 - **Custo escondido**: o tempo de verificação humana. Sempre orçar o tempo de validar uma amostra.
 
 ---
@@ -181,7 +191,7 @@ Apresentar o conceito de Simon Willison (2025): um agente fica vulnerável a ser
 
 **Objetivo do bloco:** a turma consegue distinguir quando confiar no julgamento do modelo e quando impor uma regra fixa (Objetivo 3 da ementa). É a ponte conceitual para a Sessão 2.
 
-### 5.1 Duas formas de controlar um agente (5 min)
+### 5.1 Duas formas de controlar um agente (4 min)
 
 | | Instrução em prosa | Restrição determinística |
 |---|---|---|
@@ -192,7 +202,11 @@ Apresentar o conceito de Simon Willison (2025): um agente fica vulnerável a ser
 
 **Ponto de ênfase:** instrução em prosa é um pedido; restrição determinística é uma regra. Um pedido pode ser esquecido quando o contexto enche, quando o modelo "acha" que tem uma boa razão, ou quando uma instrução maliciosa num PDF manda o contrário.
 
-### 5.2 Por que a pesquisa empírica exige previsibilidade em certos pontos (7 min)
+### 5.2 *Code as policy*: dois sentidos do termo (2 min)
+
+Quem procurar o termo vai cair em Liang et al. (2022), "Code as Policies", da robótica: lá, o LLM *gera* o programa que controla o robô, e o código gerado é a política. No uso atual com agentes, próximo de *policy as code* em infraestrutura, somos nós que *escrevemos* em código as regras que limitam o modelo. O que une os dois sentidos: a regra que vale é a que roda. Citação útil da documentação do Claude Code: as regras de permissão são impostas pela ferramenta, não pelo modelo.
+
+### 5.3 Por que a pesquisa empírica exige previsibilidade em certos pontos (5 min)
 
 Três problemas metodológicos que a turma precisa conhecer:
 
@@ -202,7 +216,14 @@ Três problemas metodológicos que a turma precisa conhecer:
 
 Conclusão para o slide: **os pontos do processo que afetam a validade e a replicação — dados brutos, formato das variáveis, registro do que foi feito, amostra de validação — devem ser protegidos por regras, não por pedidos.**
 
-### 5.3 Gancho para a Sessão 2 (3 min)
+### 5.4 Determinístico não é infalível (2 min)
+
+- Uma regra que proíbe o agente de editar um arquivo não pega um script R, escrito pelo agente, que abre esse mesmo arquivo; para isso é preciso o *sandbox* do sistema operacional (que, no Claude Code, não funciona no Windows nativo, só com WSL2).
+- Um *hook* local do Git se pula com `--no-verify`; por isso a mesma checagem roda de novo no servidor (GitHub).
+- O *sandbox* não impede que o conteúdo lido vá para o fornecedor do modelo.
+- Lição: **defesa em camadas** — *harness*, Git, servidor, revisão independente. A Sessão 2 mostra cada camada.
+
+### 5.5 Gancho para a Sessão 2 (2 min)
 
 - "Na próxima sessão vamos ver como essa distinção vira mecanismo: *skills* organizam a prosa; *hooks* impõem as regras; `AGENTS.md` registra o que o agente precisa saber; e separar um agente que executa de outro que audita dá ao trabalho uma revisão independente."
 - Mencionar que vamos usar um projeto de demonstração com o caso-âncora A (discursos parlamentares).
