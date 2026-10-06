@@ -3,6 +3,7 @@
 _site/
 *.html
 !docs/*.html
+!docs/**/*.html
 .Rproj.user
 .Rhistory
 .RData

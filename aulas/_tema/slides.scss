@@ -1,0 +1,120 @@
+/*-- scss:defaults --*/
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap");
+
+// Paleta sóbria: tinta escura, um acento (azul-petróleo) e um sinal de alerta.
+$tinta: #1f2933;
+$tinta-suave: #52606d;
+$fundo: #fbfaf7;
+$acento: #0f6e72;
+$alerta: #b5452f;
+$linha: #d9d4c7;
+
+$body-bg: $fundo;
+$body-color: $tinta;
+$link-color: $acento;
+$presentation-heading-color: $tinta;
+$presentation-heading-font-weight: 700;
+$presentation-font-size-root: 34px;
+$presentation-h2-font-size: 1.45em;
+$presentation-h3-font-size: 1.1em;
+$font-family-sans-serif: unquote('"Source Sans 3", "Source Sans Pro", Helvetica, Arial, sans-serif');
+$font-family-monospace: "JetBrains Mono", Consolas, monospace;
+$code-color: $acento;
+
+/*-- scss:rules --*/
+
+.reveal h2 {
+  border-bottom: 2px solid $linha;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.6em;
+}
+
+.reveal .slide-subtitle,
+.reveal .subtitle {
+  color: $tinta-suave;
+}
+
+// Frase-tese em destaque.
+.reveal .tese {
+  font-size: 1.35em;
+  font-weight: 700;
+  line-height: 1.25;
+  color: $acento;
+  margin: 0.8em 0;
+}
+
+.reveal .alerta {
+  color: $alerta;
+  font-weight: 600;
+}
+
+.reveal .fonte {
+  font-size: 0.55em;
+  color: $tinta-suave;
+  position: absolute;
+  bottom: -1.2em;
+  left: 0;
+}
+
+.reveal .pequeno {
+  font-size: 0.75em;
+}
+
+.reveal table {
+  font-size: 0.72em;
+}
+
+.reveal table th {
+  border-bottom: 2px solid $tinta;
+}
+
+.reveal table td {
+  border-bottom: 1px solid $linha;
+  vertical-align: top;
+}
+
+// Caixas lado a lado para comparações (prosa vs. regra).
+.reveal .caixa {
+  border: 1px solid $linha;
+  border-left: 6px solid $tinta-suave;
+  background: #ffffff;
+  padding: 0.5em 0.7em;
+  border-radius: 4px;
+}
+
+.reveal .caixa.regra {
+  border-left-color: $acento;
+}
+
+.reveal .caixa.prosa {
+  border-left-color: $alerta;
+}
+
+// Escada de camadas.
+.reveal .camada {
+  border: 1px solid $linha;
+  background: #ffffff;
+  padding: 0.25em 0.6em;
+  margin: 0.18em 0;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+
+.reveal .camada.prob {
+  border-left: 6px solid $alerta;
+}
+
+.reveal .camada.det {
+  border-left: 6px solid $acento;
+}
+
+.reveal .data-carimbo {
+  display: inline-block;
+  font-size: 0.6em;
+  font-weight: 700;
+  color: $fundo;
+  background: $alerta;
+  padding: 0.1em 0.5em;
+  border-radius: 3px;
+  vertical-align: middle;
+}
