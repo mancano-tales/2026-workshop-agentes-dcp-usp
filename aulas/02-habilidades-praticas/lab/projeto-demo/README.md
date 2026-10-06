@@ -11,7 +11,7 @@ Os discursos em `dados/brutos/discursos.csv` são **fictícios**.
 | `.claude/skills/codificar-discursos/SKILL.md` | *Skill* — protocolo de codificação em prosa | 1 |
 | `.claude/agents/auditor.md` | Subagente auditor com contexto limpo e só leitura | 1 |
 | `.claude/hooks/proteger_dados_brutos.R` | *Hook* `PreToolUse` — bloqueia escrita em `dados/brutos/` | 2 |
-| `.claude/hooks/validar_apos_escrita.R` | *Hook* `PostToolUse` — roda o validador após gravar a codificação | 2 |
+| `.claude/hooks/validar_apos_escrita.R` | *Hook* `PostToolUse` e `Stop` — roda o validador sempre que a codificação pode ter mudado (edição, gravação ou comando de terminal) e antes de o agente encerrar | 2 |
 | `R/validar_codificacao.R` | *Code as policy* — a regra executável em si | 2 |
 | `.claude/settings.json` | Registro dos *hooks* e regras de permissão (nega leitura de credenciais e escrita em `dados/brutos/`) | 2 e 3 |
 | `.claude/hooks/registrar_acoes.R` | *Hook* de rastreabilidade — grava `logs/registro-agente.jsonl` | 4 |
@@ -58,7 +58,7 @@ Ponto para a fala: o `AGENTS.md` já dizia para não mexer nos dados brutos. O *
 cat logs/registro-agente.jsonl
 ```
 
-Mostrar que cada ação do agente ficou registrada com horário, ferramenta e alvo.
+Mostrar que cada mudança feita pelo agente (edições, gravações e comandos concluídos com sucesso) ficou registrada com horário, ferramenta e alvo. Dos comandos de terminal, o log guarda só o programa e os arquivos citados, não o comando inteiro, que pode conter dados ou credenciais. Leituras e tentativas bloqueadas não entram no log.
 
 ## Para ensaiar antes da aula
 

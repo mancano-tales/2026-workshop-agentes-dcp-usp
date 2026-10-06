@@ -21,7 +21,7 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "Edit|Write|MultiEdit",
+        "matcher": "Edit|Write|MultiEdit|Bash",
         "hooks": [
           {
             "type": "command",
@@ -35,6 +35,16 @@
           {
             "type": "command",
             "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/registrar_acoes.R\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/validar_apos_escrita.R\""
           }
         ]
       }

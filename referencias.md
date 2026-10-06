@@ -47,7 +47,7 @@ Observação: boa parte do material mais útil sobre agentes de pesquisa circula
   <https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents>
 - **Anthropic (2025).** *Claude Code: Best Practices for Agentic Coding*; documentação oficial de *hooks*, *skills*, subagentes e `CLAUDE.md`. Referência técnica para o formato usado no projeto de demonstração. **[S2]**
   <https://code.claude.com/docs>
-- **"Dive into Claude Code: The Design Space of Today's and Future AI Agent Systems" (2026).** arXiv:2604.14228. Análise acadêmica da arquitetura de agentes de terminal: permissões, *hooks*, subagentes, memória. Útil para quem quiser aprofundar o bloco sobre *harness*. **[S1]**
+- **Liu, Jiacheng; Zhao, Xiaohan; Shang, Xinyi; Shen, Zhiqiang (2026).** "Dive into Claude Code: The Design Space of Today's and Future AI Agent Systems". arXiv:2604.14228. Análise acadêmica da arquitetura de agentes de terminal: permissões, *hooks*, subagentes, memória. Útil para quem quiser aprofundar o bloco sobre *harness*. **[S1]**
   <https://arxiv.org/abs/2604.14228>
 
 ## 3. Padrões abertos

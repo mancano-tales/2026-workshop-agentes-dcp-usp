@@ -105,7 +105,9 @@ if (nrow(conf_invalida)) {
 #         fabricated quotes (hallucination).
 evidencia_inexistente <- codigos |>
   inner_join(brutos |> select(id_discurso, texto), by = "id_discurso") |>
-  filter(is.na(trecho_evidencia) |
+  # PT: um trecho vazio "existiria" em qualquer discurso; por isso é recusado.
+  # EN: an empty excerpt would "occur" in any speech, so it is rejected.
+  filter(is.na(trecho_evidencia) | str_trim(trecho_evidencia) == "" |
            !str_detect(texto, fixed(trecho_evidencia)))
 
 if (nrow(evidencia_inexistente)) {

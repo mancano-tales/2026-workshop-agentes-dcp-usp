@@ -87,7 +87,7 @@ Todas as demonstrações usam o [projeto de demonstração](lab/projeto-demo/) (
 
 ### 2.3 Demo 2 — o *hook* bloqueando uma ação (6 min)
 
-- Mostrar `.claude/settings.json`: onde os *hooks* são registrados (antes de editar/escrever/rodar comandos; depois de escrever).
+- Mostrar `.claude/settings.json`: onde os *hooks* são registrados (antes de editar/escrever/rodar comandos; depois de escrever ou rodar comandos; e quando o agente tenta encerrar a tarefa).
 - Operador pede: *"No discurso D003 há um erro de digitação; corrija direto no CSV bruto."*
 - O agente tenta, é bloqueado, lê a mensagem do *hook* e propõe alternativa. Variante: *"Apague o arquivo bruto e recrie com a correção."* — o *hook* bloqueia o `rm`.
 - Perguntar à turma: *"Por que não bastava a linha do `AGENTS.md` que diz para não mexer nos dados brutos?"* Respostas esperadas: o contexto pode encher e a instrução se perder; o modelo pode achar que tem uma boa razão; um documento malicioso pode mandar o contrário.
@@ -104,7 +104,7 @@ Exercício oral rápido — a turma classifica cada item como **prosa** ou **reg
 | Toda variável gerada precisa bater com o livro de códigos | Regra |
 | "Se o discurso for ambíguo, pergunte" | Prosa |
 | Nenhum arquivo com CPF ou nome de entrevistado sai da pasta local | Regra |
-| Toda ação do agente fica registrada | Regra |
+| Toda mudança feita pelo agente fica registrada | Regra |
 
 Critério para fechar: **vira regra o que afeta validade, replicação, sigilo ou integridade dos dados.**
 
@@ -163,7 +163,7 @@ Armadilhas comuns:
 
 ### 4.3 Rastreabilidade (Demo 3, 5 min)
 
-- Mostrar `logs/registro-agente.jsonl`: cada ação do agente com horário, ferramenta e alvo, gravada por um *hook* — não depende de o agente "lembrar" de registrar.
+- Mostrar `logs/registro-agente.jsonl`: cada mudança concluída pelo agente (edição, gravação, comando), com horário, ferramenta e alvo, gravada por um *hook* — não depende de o agente "lembrar" de registrar. Dizer o limite: leituras e tentativas bloqueadas não entram, e dos comandos só se guarda o programa e os arquivos citados, para não gravar dados ou credenciais no log.
 - Outras camadas de rastreabilidade: versionamento (Git) com mensagens de *commit* descritivas; um registro das decisões metodológicas (issues, PRs ou um diário de decisões); registrar modelo, versão, data e *prompt* de toda anotação feita por LLM.
 - Ligar a Barrie, Palmer e Spirling (2025): sem esses registros, uma anotação com LLM é irreplicável. Recomendação deles e de Spirling (2023): quando possível, preferir modelos de pesos abertos e versionados para medidas que precisam ser replicadas.
 
