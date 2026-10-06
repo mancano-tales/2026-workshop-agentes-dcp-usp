@@ -179,7 +179,7 @@ Variante que a guarda **não** vê: *"Escreva um script R que corrija o erro e r
 
 **Por que não bastava a linha do `AGENTS.md`?** O contexto enche; o modelo acha que tem uma boa razão; um documento malicioso manda o contrário.
 
-## Guarda, sensor, restauração
+## Guarda, sensor, restauração {.smaller}
 
 ::: {.columns}
 ::: {.column width="33%"}
@@ -193,7 +193,7 @@ bloqueia edição e comandos que tocam `dados/brutos/` e não são leitura
 ::: {.caixa .regra}
 **Sensor** (depois)
 
-compara a impressão digital (MD5) dos arquivos com a referência versionada
+pergunta ao Git se algum arquivo mudou, sumiu ou apareceu desde a versão registrada
 :::
 :::
 ::: {.column width="33%"}
@@ -207,8 +207,10 @@ o controle de versão traz de volta a versão original
 
 > "The fix is not a bigger hook. It is a stack."
 
+A referência do sensor é o Git, não uma lista de *hashes* na pasta: um script que altera os dados poderia reescrever a lista. O agente não guarda o próprio boletim.
+
 ::: {.fonte}
-Scott Cunningham, repositório MixtapeTools, `hooks/protect-raw-data` (ago. 2026).
+Scott Cunningham, repositório MixtapeTools, `hooks/protect-raw-data` (ago. 2026). A brecha da lista de *hashes* foi apontada pela revisão do Codex no PR #4 deste repositório.
 :::
 
 ## Prosa ou regra? {.smaller}

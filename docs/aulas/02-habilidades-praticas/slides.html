@@ -464,7 +464,7 @@ Tales Mançano (DCP-USP)
 <p><strong>Por que não bastava a linha do <code>AGENTS.md</code>?</strong> O contexto enche; o modelo acha que tem uma boa razão; um documento malicioso manda o contrário.</p>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 smaller">
 <h2>Guarda, sensor, restauração</h2>
 <div class="columns">
 <div class="column" style="width:33%;">
@@ -475,7 +475,7 @@ Tales Mançano (DCP-USP)
 </div><div class="column" style="width:33%;">
 <div class="caixa regra">
 <p><strong>Sensor</strong> (depois)</p>
-<p>compara a impressão digital (MD5) dos arquivos com a referência versionada</p>
+<p>pergunta ao Git se algum arquivo mudou, sumiu ou apareceu desde a versão registrada</p>
 </div>
 </div><div class="column" style="width:33%;">
 <div class="caixa regra">
@@ -486,8 +486,9 @@ Tales Mançano (DCP-USP)
 <blockquote>
 <p>“The fix is not a bigger hook. It is a stack.”</p>
 </blockquote>
+<p>A referência do sensor é o Git, não uma lista de <em>hashes</em> na pasta: um script que altera os dados poderia reescrever a lista. O agente não guarda o próprio boletim.</p>
 <div class="fonte">
-<p>Scott Cunningham, repositório MixtapeTools, <code>hooks/protect-raw-data</code> (ago. 2026).</p>
+<p>Scott Cunningham, repositório MixtapeTools, <code>hooks/protect-raw-data</code> (ago. 2026). A brecha da lista de <em>hashes</em> foi apontada pela revisão do Codex no PR #4 deste repositório.</p>
 </div>
 </section>
 <section class="slide level2 smaller">
