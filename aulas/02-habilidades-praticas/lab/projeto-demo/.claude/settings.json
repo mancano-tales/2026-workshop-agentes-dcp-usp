@@ -4,7 +4,9 @@
       "Read(./.env)",
       "Read(./**/*.key)",
       "Edit(./dados/brutos/**)",
-      "Write(./dados/brutos/**)"
+      "Write(./dados/brutos/**)",
+      "Edit(./dados/brutos.md5)",
+      "Write(./dados/brutos.md5)"
     ]
   },
   "hooks": {
@@ -20,6 +22,15 @@
       }
     ],
     "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/verificar_integridade_brutos.R\""
+          }
+        ]
+      },
       {
         "matcher": "Edit|Write|MultiEdit|Bash",
         "hooks": [
@@ -42,6 +53,10 @@
     "Stop": [
       {
         "hooks": [
+          {
+            "type": "command",
+            "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/verificar_integridade_brutos.R\""
+          },
           {
             "type": "command",
             "command": "Rscript \"$CLAUDE_PROJECT_DIR/.claude/hooks/validar_apos_escrita.R\""

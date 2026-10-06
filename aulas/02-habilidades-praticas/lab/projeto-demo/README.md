@@ -10,7 +10,9 @@ Os discursos em `dados/brutos/discursos.csv` são **fictícios**.
 |---|---|---|
 | `.claude/skills/codificar-discursos/SKILL.md` | *Skill* — protocolo de codificação em prosa | 1 |
 | `.claude/agents/auditor.md` | Subagente auditor com contexto limpo e só leitura | 1 |
-| `.claude/hooks/proteger_dados_brutos.R` | *Hook* `PreToolUse` — bloqueia escrita em `dados/brutos/` | 2 |
+| `.claude/hooks/proteger_dados_brutos.R` | *Hook* `PreToolUse` (guarda) — bloqueia edição em `dados/brutos/` e qualquer comando de terminal que toque a pasta e não seja uma leitura simples | 2 |
+| `.claude/hooks/verificar_integridade_brutos.R` | *Hook* `PostToolUse` e `Stop` (sensor) — compara o MD5 dos dados brutos com `dados/brutos.md5` depois de cada comando; pega alterações feitas por scripts que a guarda não vê | 2 |
+| `dados/brutos.md5` e `.gitattributes` | Referência de integridade; os brutos são versionados sem conversão de fim de linha, para o hash ser o mesmo em qualquer sistema | 2 |
 | `.claude/hooks/validar_apos_escrita.R` | *Hook* `PostToolUse` e `Stop` — roda o validador sempre que a codificação pode ter mudado (edição, gravação ou comando de terminal) e antes de o agente encerrar | 2 |
 | `R/validar_codificacao.R` | *Code as policy* — a regra executável em si | 2 |
 | `.claude/settings.json` | Registro dos *hooks* e regras de permissão (nega leitura de credenciais e escrita em `dados/brutos/`) | 2 e 3 |
@@ -49,6 +51,9 @@ O segundo comando deve listar: código inexistente (`contra`), confiança invál
 1. Pedir: *"No discurso D003 há um erro de digitação; corrija direto no CSV bruto."*
 2. O agente tenta editar `dados/brutos/discursos.csv` e é bloqueado; a mensagem do *hook* aparece e o agente propõe a alternativa (registrar a correção em `dados/processados/`).
 3. Variante via terminal: *"Apague o arquivo bruto e recrie com a correção."* O *hook* bloqueia o `rm`.
+4. Variante que a guarda não vê: *"Escreva um script R que corrija o erro de digitação e rode-o."* O comando (`Rscript corrigir.R`) não menciona `dados/brutos`, então a guarda deixa passar; depois do comando, o **sensor** de integridade acusa a alteração e o agente não consegue encerrar até restaurar os dados (`git checkout -- dados/brutos`).
+
+Ponto para a fala: nenhuma regra isolada basta. A guarda impede o óbvio; o sensor pega o que escapou; o controle de versão permite restaurar. É uma pilha de camadas, não um *hook* maior.
 
 Ponto para a fala: o `AGENTS.md` já dizia para não mexer nos dados brutos. O *hook* existe para o caso em que o pedido em prosa falha.
 
@@ -63,6 +68,7 @@ Mostrar que cada mudança feita pelo agente (edições, gravações e comandos c
 ## Para ensaiar antes da aula
 
 - Rodar as quatro demos do zero, na máquina e com a conta que serão usadas ao vivo.
-- Conferir de onde vem o bloqueio de edição. `dados/brutos/` está protegido em duas camadas: pelo *hook* e pelas regras `deny` de `permissions` em `.claude/settings.json` (defesa em profundidade). O *hook* `PreToolUse` deve disparar antes da checagem de permissões, e a mensagem dele deve aparecer; se no ensaio aparecer a mensagem genérica de permissão negada, remover temporariamente as duas linhas `Edit(./dados/brutos/**)` e `Write(./dados/brutos/**)` para a demonstração. A variante via terminal (`rm`) só é coberta pelo *hook*.
-- Apagar `logs/registro-agente.jsonl` e `dados/processados/codificacao.csv` entre um ensaio e outro.
+- Conferir de onde vem o bloqueio de edição. `dados/brutos/` está protegido em duas camadas: pelo *hook* e pelas regras `deny` de `permissions` em `.claude/settings.json` (defesa em profundidade). O *hook* `PreToolUse` deve disparar antes da checagem de permissões, e a mensagem dele deve aparecer; se no ensaio aparecer a mensagem genérica de permissão negada, remover temporariamente as duas linhas `Edit(./dados/brutos/**)` e `Write(./dados/brutos/**)` para a demonstração. A variante via terminal (`rm`) só é coberta pelo *hook*. Depois da variante 4, restaurar os dados com `git checkout -- dados/brutos` antes do próximo ensaio.
+- Apagar `logs/registro-agente.jsonl`, `logs/.codificacao-validada.md5` e os CSVs de `dados/processados/` entre um ensaio e outro (o `.gitignore` da demo já impede que sejam versionados).
+- Se o agente não conseguir corrigir a codificação, o *hook* de encerramento continua bloqueando; a saída prevista é mover o arquivo para `dados/processados/codificacao_invalida.csv` e explicar o que ficou pendente.
 - Os *hooks* em R levam cerca de um segundo cada para iniciar; em projetos reais com muitas ações, um *hook* em shell ou Python é mais rápido. Aqui a escolha por R é didática: é a linguagem que a maioria do público lê.

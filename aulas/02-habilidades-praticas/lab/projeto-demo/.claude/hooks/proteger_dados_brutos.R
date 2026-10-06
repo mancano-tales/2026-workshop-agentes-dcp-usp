@@ -55,22 +55,45 @@ if (ferramenta %in% c("Edit", "Write", "MultiEdit", "NotebookEdit")) {
 
 # -----------------------------------------------------------------------------
 # Caso 2 / Case 2: comandos de terminal / shell commands
-#   PT: Ler dados brutos (cat, head, read_csv) é permitido; o que se bloqueia
-#       são comandos que mencionam a pasta protegida E têm cara de escrita.
-#       É uma heurística propositalmente simples para fins didáticos — na vida
-#       real, combine com permissões do sistema de arquivos (chmod -w) ou com
-#       montagem somente leitura no contêiner.
-#   EN: Reading raw data is allowed; we block commands that mention the
-#       protected folder AND look like writes. Deliberately simple heuristic
-#       for teaching — in practice, combine with filesystem permissions or a
-#       read-only mount in the container.
+#   PT: Adivinhar quais comandos "escrevem" não funciona: truncate, perl -pi ou
+#       um script Python também alteram arquivos. Por isso a regra é invertida:
+#       um comando que menciona a pasta protegida só passa se o programa estiver
+#       numa lista curta de programas de LEITURA e não houver redirecionamento
+#       de saída. Todo o resto é bloqueado.
+#       Limite honesto: um script (ex.: Rscript analise.R) pode abrir dados/brutos
+#       sem que o caminho apareça no comando. Para isso existe a segunda camada,
+#       o sensor verificar_integridade_brutos.R, que compara o MD5 dos arquivos
+#       com a referência em dados/brutos.md5 depois de cada comando. Na vida
+#       real, some a isso permissões do sistema de arquivos (somente leitura)
+#       ou montagem somente leitura no contêiner.
+#   EN: Guessing which commands write does not work, so the rule is inverted:
+#       a command mentioning the protected folder passes only if its program is
+#       on a short read-only allowlist and there is no output redirection. A
+#       script can still open the folder without naming it; the integrity
+#       sensor (verificar_integridade_brutos.R) covers that case.
 # -----------------------------------------------------------------------------
 if (ferramenta == "Bash") {
   comando <- parametros$command %||% ""
-  padrao_escrita <- "(\\brm\\b|\\bmv\\b|\\bcp\\b|sed -i|\\btee\\b|>|write_csv|write\\.csv|file\\.remove|unlink)"
-  if (grepl(pasta_protegida, comando, fixed = TRUE) &&
-      grepl(padrao_escrita, comando, perl = TRUE)) {
-    bloquear(paste0("comando de terminal que parece modificar ", pasta_protegida, ": `", comando, "`."))
+  if (grepl(pasta_protegida, comando, fixed = TRUE)) {
+    leitura <- c("cat", "head", "tail", "less", "more", "wc", "ls", "grep",
+                 "diff", "md5sum", "sha256sum", "file", "stat")
+    # PT: analisa cada trecho do comando (separado por ;, &&, || ou |).
+    # EN: check each segment of the command (split on ;, &&, || or |).
+    trechos <- trimws(strsplit(comando, "&&|[|]{1,2}|;|\n", perl = TRUE)[[1]])
+    trechos <- trechos[nzchar(trechos)]
+    for (trecho in trechos) {
+      if (!grepl(pasta_protegida, trecho, fixed = TRUE)) next
+      palavras <- strsplit(trecho, "[[:space:]]+")[[1]]
+      # PT: ignora atribuições de variável no início (VAR=valor programa ...).
+      palavras <- palavras[!cumprod(grepl("^[A-Za-z_][A-Za-z0-9_]*=", palavras))]
+      programa <- basename(palavras[1] %||% "")
+      if (!(programa %in% leitura) || grepl(">", trecho, fixed = TRUE)) {
+        bloquear(paste0(
+          "comando de terminal que toca ", pasta_protegida,
+          " e não é uma leitura simples: `", trecho, "`."
+        ))
+      }
+    }
   }
 }
 

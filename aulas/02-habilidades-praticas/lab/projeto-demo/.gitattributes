@@ -1,0 +1,4 @@
+# Dados brutos e a referência de integridade são comparados byte a byte (MD5).
+# Sem conversão de fim de linha, o hash é o mesmo em qualquer sistema.
+dados/brutos/** -text
+dados/brutos.md5 -text
