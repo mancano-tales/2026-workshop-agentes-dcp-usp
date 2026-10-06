@@ -20,3 +20,6 @@ desktop.ini
 
 /.quarto/
 **/*.quarto_ipynb
+
+# Historicos locais do SpecStory (conversas com IA)
+.specstory/
