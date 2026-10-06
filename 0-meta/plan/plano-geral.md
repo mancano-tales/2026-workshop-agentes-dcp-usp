@@ -86,7 +86,7 @@ Para que os exemplos não fiquem abstratos, sugerimos repetir os mesmos três ca
 
 ## 6. Decisões em aberto
 
-1. **Qual agente usar ao vivo.** O roteiro foi escrito para funcionar com qualquer agente de terminal que suporte *hooks*, *skills* e `AGENTS.md`. Os exemplos de configuração usam o formato do Claude Code (`.claude/settings.json`), que é o mais documentado; convém mostrar ao menos uma vez uma alternativa aberta (OpenCode, goose) para não parecer propaganda de fornecedor — coerente com a decisão já registrada no `NEWS.md` de evitar centralizar a ementa em produtos.
+1. **Qual agente usar ao vivo.** O roteiro foi escrito para funcionar com qualquer agente de terminal que suporte *hooks*, *skills* e `AGENTS.md`. Os exemplos de configuração usam o formato do Claude Code (`.claude/settings.json`), que é o mais documentado; convém mostrar ao menos uma vez uma alternativa aberta (OpenCode, goose) para não parecer propaganda de fornecedor — coerente com a decisão já tomada na ementa de evitar centralizá-la em produtos (commit `ff3e9d7`).
 2. **Lista de leituras na ementa.** A ementa atual não tem seção de referências. Se quisermos incluir, sugerimos 5 a 7 itens da seção "Leituras essenciais" de `referencias.md`, e recompilar via Quarto.
 3. **Enquete de abertura.** Usar formulário (Mentimeter, Google Forms) ou mão levantada. Os dados da pesquisa da Anthropic com 1.260 cientistas sociais (81% usaram chatbots; 20% usam agentes; 25% entre cientistas políticos) servem de comparação com a turma.
 4. **Público com e sem programação.** A ementa promete que não é preciso programar. As demonstrações da Sessão 2 mostram código, mas o roteiro sempre explica *o que a regra faz* antes de mostrar *como está escrita*.

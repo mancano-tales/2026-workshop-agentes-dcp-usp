@@ -145,7 +145,7 @@ Critério para fechar: **vira regra o que afeta validade, replicação, sigilo o
 ### 4.1 O que é e para que serve (4 min)
 
 - Um arquivo em Markdown, na raiz do projeto, que o agente lê no início de cada sessão: é a **memória persistente do projeto**. Padrão aberto, adotado por dezenas de milhares de repositórios e pelos principais agentes. (O Claude Code lê `CLAUDE.md`; no projeto de demonstração, o `CLAUDE.md` apenas importa o `AGENTS.md`, para manter uma única fonte.)
-- Mostrar o `AGENTS.md` do projeto de demonstração e o do próprio repositório do minicurso — que tem, por exemplo, a regra de registrar tudo no `NEWS.md`.
+- Mostrar o `AGENTS.md` do projeto de demonstração e o do próprio repositório do minicurso — que tem, por exemplo, a regra de que todo commit de agente leva o trailer `Agent:` (e um hook do git que a confere).
 
 ### 4.2 Estrutura, nível de detalhe e armadilhas (6 min)
 
@@ -164,7 +164,7 @@ Armadilhas comuns:
 ### 4.3 Rastreabilidade (Demo 3, 5 min)
 
 - Mostrar `logs/registro-agente.jsonl`: cada ação do agente com horário, ferramenta e alvo, gravada por um *hook* — não depende de o agente "lembrar" de registrar.
-- Outras camadas de rastreabilidade: versionamento (Git) com mensagens de *commit* descritivas; um `NEWS.md` com as decisões metodológicas; registrar modelo, versão, data e *prompt* de toda anotação feita por LLM.
+- Outras camadas de rastreabilidade: versionamento (Git) com mensagens de *commit* descritivas; um registro das decisões metodológicas (issues, PRs ou um diário de decisões); registrar modelo, versão, data e *prompt* de toda anotação feita por LLM.
 - Ligar a Barrie, Palmer e Spirling (2025): sem esses registros, uma anotação com LLM é irreplicável. Recomendação deles e de Spirling (2023): quando possível, preferir modelos de pesos abertos e versionados para medidas que precisam ser replicadas.
 
 ---

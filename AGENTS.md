@@ -67,5 +67,5 @@ Repositório do minicurso "Workshop Agentes: Inteligência Artificial e Autonomi
 
 ## Diretrizes de Operação para Agentes de IA
 * **Comunicação Direta**: Manter tom conciso, profissional e acadêmico. Evitar uso de emojis.
-* **Governança**: Toda alteração relevante no curso deve ser registrada no `NEWS.md`.
+* **Governança**: Decisões e entregas relevantes do curso ficam registradas em issues, PRs e commits (o `NEWS.md` foi aposentado; ver o bloco de governança comum acima).
 * **Renderização**: A ementa e os slides utilizam Quarto. Não edite arquivos PDF/HTML compilados diretamente em `docs/`; edite os fontes `.qmd` e execute a compilação.
