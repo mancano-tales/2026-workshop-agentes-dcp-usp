@@ -1,0 +1,3 @@
+# Saída gerada pelo Quarto: versionada como está, sem conversão de fim de linha.
+# Evita que o core.autocrlf acuse alterações falsas a cada renderização.
+docs/** -text
