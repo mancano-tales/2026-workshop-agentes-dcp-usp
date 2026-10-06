@@ -558,7 +558,7 @@ Tales Mançano (DCP-USP)
 <h2>Menos acesso como padrão</h2>
 <p>Retomando a tríade letal: dados privados + conteúdo não confiável + comunicação externa.</p>
 <ol type="1">
-<li><strong>Chaves de API</strong> fora da pasta do agente (variável de ambiente do sistema ou cofre de senhas), nunca no versionamento. Negar a leitura do <code>.env</code> no harness é uma camada parcial: <code>cat .env</code> pelo terminal contorna</li>
+<li><strong>Chaves de API</strong>: o agente não deve ter acesso a elas. Negar a leitura do <code>.env</code> é camada parcial (<code>cat .env</code> contorna), e uma variável de ambiente é herdada por todo comando que o agente roda. Inicie o agente sem o segredo e entregue-o só ao script que precisa, via cofre de senhas</li>
 <li><strong>Chave dedicada, com limite de gasto</strong>, por projeto</li>
 <li><strong>Permissões mínimas</strong>: servidores MCP só de leitura quando possível</li>
 <li><strong>Isolamento</strong>: autonomia ampla só em contêiner ou máquina virtual</li>

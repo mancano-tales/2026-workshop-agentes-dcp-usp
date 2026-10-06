@@ -250,7 +250,7 @@ Cada servidor conectado ocupa contexto **e** amplia a superfície de risco.
 
 Retomando a tríade letal: dados privados + conteúdo não confiável + comunicação externa.
 
-1. **Chaves de API** fora da pasta do agente (variável de ambiente do sistema ou cofre de senhas), nunca no versionamento. Negar a leitura do `.env` no harness é uma camada parcial: `cat .env` pelo terminal contorna
+1. **Chaves de API**: o agente não deve ter acesso a elas. Negar a leitura do `.env` é camada parcial (`cat .env` contorna), e uma variável de ambiente é herdada por todo comando que o agente roda. Inicie o agente sem o segredo e entregue-o só ao script que precisa, via cofre de senhas
 2. **Chave dedicada, com limite de gasto**, por projeto
 3. **Permissões mínimas**: servidores MCP só de leitura quando possível
 4. **Isolamento**: autonomia ampla só em contêiner ou máquina virtual
