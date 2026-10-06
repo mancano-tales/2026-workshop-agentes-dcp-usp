@@ -89,7 +89,7 @@ O que observar:
 . . .
 
 ::: {.alerta}
-A amostra de validação é o que permite usar a variável numa regressão sem enviesar a estimativa.
+A amostra de validação não elimina o viés sozinha: ela é o insumo de um estimador que o corrige (ex.: DSL), que precisa saber a probabilidade de cada caso entrar na amostra.
 :::
 
 ::: {.fonte}
@@ -250,7 +250,7 @@ Cada servidor conectado ocupa contexto **e** amplia a superfície de risco.
 
 Retomando a tríade letal: dados privados + conteúdo não confiável + comunicação externa.
 
-1. **Chaves de API** em `.env`, fora do versionamento; agente proibido de ler o `.env`
+1. **Chaves de API** fora da pasta do agente (variável de ambiente do sistema ou cofre de senhas), nunca no versionamento. Negar a leitura do `.env` no harness é uma camada parcial: `cat .env` pelo terminal contorna
 2. **Chave dedicada, com limite de gasto**, por projeto
 3. **Permissões mínimas**: servidores MCP só de leitura quando possível
 4. **Isolamento**: autonomia ampla só em contêiner ou máquina virtual
@@ -266,11 +266,12 @@ Um PDF "de referência" traz, em letra branca:
 . . .
 
 - O modelo lê o texto escondido como se fosse instrução
-- **O que protege**: o *hook* e as permissões, que não leem PDFs nem se convencem
+- **O que protege**: uma regra que bloqueie a ação perigosa (*hook* ou permissão) — ela não lê PDFs nem se convence — e uma cópia da qual restaurar
 - **O que não protege**: pedir ao modelo que "tome cuidado"
+- **E se não houver regra para aquela ação?** O agente obedece ao PDF. Regras só protegem o que cobrem
 
 ::: notes
-Demonstração a preparar e ensaiar (decisão 4 do plano de preparação, 0-meta/plan/2026-10-06_plano-preparacao-aulas.md). Usar uma pasta descartável; nunca dados reais.
+Demonstração a preparar e ensaiar (decisão 4 do plano de preparação, 0-meta/plan/2026-10-06_plano-preparacao-aulas.md). Usar uma pasta descartável; nunca dados reais. O projeto de demonstração atual NÃO bloqueia apagar dados/processados/ (o hook de validação só acusa depois). A pasta da demo precisa de um hook PreToolUse que bloqueie rm em resultados — ou, alternativa honesta, mostrar primeiro a falha (sem regra, o agente apaga) e depois a mesma tentativa com a regra ligada.
 :::
 
 # 4. `AGENTS.md`, Git e reprodutibilidade

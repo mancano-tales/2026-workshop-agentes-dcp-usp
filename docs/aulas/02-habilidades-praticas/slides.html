@@ -337,7 +337,7 @@ Tales Mançano (DCP-USP)
 </ol>
 <div class="fragment">
 <div class="alerta">
-<p>A amostra de validação é o que permite usar a variável numa regressão sem enviesar a estimativa.</p>
+<p>A amostra de validação não elimina o viés sozinha: ela é o insumo de um estimador que o corrige (ex.: DSL), que precisa saber a probabilidade de cada caso entrar na amostra.</p>
 </div>
 <div class="fonte">
 <p>Egami et al.&nbsp;(2023); Ludwig, Mullainathan e Rambachan (2026).</p>
@@ -558,7 +558,7 @@ Tales Mançano (DCP-USP)
 <h2>Menos acesso como padrão</h2>
 <p>Retomando a tríade letal: dados privados + conteúdo não confiável + comunicação externa.</p>
 <ol type="1">
-<li><strong>Chaves de API</strong> em <code>.env</code>, fora do versionamento; agente proibido de ler o <code>.env</code></li>
+<li><strong>Chaves de API</strong> fora da pasta do agente (variável de ambiente do sistema ou cofre de senhas), nunca no versionamento. Negar a leitura do <code>.env</code> no harness é uma camada parcial: <code>cat .env</code> pelo terminal contorna</li>
 <li><strong>Chave dedicada, com limite de gasto</strong>, por projeto</li>
 <li><strong>Permissões mínimas</strong>: servidores MCP só de leitura quando possível</li>
 <li><strong>Isolamento</strong>: autonomia ampla só em contêiner ou máquina virtual</li>
@@ -575,11 +575,12 @@ Tales Mançano (DCP-USP)
 <div class="fragment">
 <ul>
 <li>O modelo lê o texto escondido como se fosse instrução</li>
-<li><strong>O que protege</strong>: o <em>hook</em> e as permissões, que não leem PDFs nem se convencem</li>
+<li><strong>O que protege</strong>: uma regra que bloqueie a ação perigosa (<em>hook</em> ou permissão) — ela não lê PDFs nem se convence — e uma cópia da qual restaurar</li>
 <li><strong>O que não protege</strong>: pedir ao modelo que “tome cuidado”</li>
+<li><strong>E se não houver regra para aquela ação?</strong> O agente obedece ao PDF. Regras só protegem o que cobrem</li>
 </ul>
 <aside class="notes">
-<p>Demonstração a preparar e ensaiar (decisão 4 do plano de preparação, 0-meta/plan/2026-10-06_plano-preparacao-aulas.md). Usar uma pasta descartável; nunca dados reais.</p>
+<p>Demonstração a preparar e ensaiar (decisão 4 do plano de preparação, 0-meta/plan/2026-10-06_plano-preparacao-aulas.md). Usar uma pasta descartável; nunca dados reais. O projeto de demonstração atual NÃO bloqueia apagar dados/processados/ (o hook de validação só acusa depois). A pasta da demo precisa de um hook PreToolUse que bloqueie rm em resultados — ou, alternativa honesta, mostrar primeiro a falha (sem regra, o agente apaga) e depois a mesma tentativa com a regra ligada.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
